@@ -10,7 +10,8 @@ struct colors {
     void YUVToRGB() {}
     void HSVToRGB() {}
     void HSLToRGB() {}
-}
+};
+
 
 int main()
 {
