@@ -4,6 +4,7 @@ Projekt ma na celu stworzenie własnego formatu graficznego korzystającego z al
 ##Specyfikacja pliku .???
 
 Plik tego formatu służy do zapisu obrazów. Używa kompresji bezstratnej (algorytm LZW). Składa się z nagłówka, który posiada podstawowe informacje o obrazie oraz z danych obrazu zapisanych w sposób ciągły zaraz za nagłówkiem. Poniżej znajduje się tabela opisująca ten format.
+
 ```
 ID pola	Offset [bajty]	Rozmiar [bajty]	Nazwa pola	Opis
 1	0	2	Typ pliku	Służy do identyfikacji formatu pliku. Pierwszy bit ma wartość 0x3A, drugi 0x29, co odpowiada znakom :) w kodzie ASCII.
