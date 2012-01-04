@@ -1,3 +1,3 @@
-# Projekt na grafikê
+# Projekt na grafikÄ™
 
-Projekt ma na celu stworzenie w³asnego formatu graficznego korzystaj¹cego z algorytmu kompresji LZW
+Projekt ma na celu stworzenie wÅ‚asnego formatu graficznego korzystajÄ…cego z algorytmu kompresji LZW
