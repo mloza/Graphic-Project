@@ -19,6 +19,5 @@ ID pola	Offset [bajty]	Rozmiar [bajty]	Nazwa pola	Opis
 
 
 ### Komentarze:
-* słownik trzymamy w tablicy 4096 elementów (12 bajtów na indeksy).pod poszczególnym indeksem możemy zapisać ciąg znaków o dowolnej długości string słownik[4096]; 
-* Elementy przechowują ciągi znaków, które opisują bajty z których składa się słowo np. “255:24:34:5”
+* słownik trzymamy w tablicy 4096 elementów (12 bajtów na indeksy).pod poszczególnym indeksem możemy zapisać dynamiczną tablicę bajtów (wskaźnik na początek tablicy i jej rozmiar) 
 * do pliku zapisujemy liczby 12 bitowe
