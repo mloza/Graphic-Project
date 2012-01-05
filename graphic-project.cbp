@@ -7,17 +7,21 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/graphic-project" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
+				<Option output="bin\Debug\graphic-project" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="D:\graphic-project\" />
 				</Compiler>
+				<Linker>
+					<Add directory="D:\graphic-project\" />
+				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/graphic-project" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
+				<Option output="bin\Release\graphic-project" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -32,6 +36,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="decoder.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="decoder.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="uint2x12_t.h" />
 		<Extensions>
