@@ -10,8 +10,8 @@ ID pola	Offset [bajty]	Rozmiar [bajty]	Nazwa pola	Opis
 1	0	2	Typ pliku	Służy do identyfikacji formatu pliku. Pierwszy bit ma wartość 0x3A, drugi 0x29, co odpowiada znakom :) w kodzie ASCII.
 2	2	1	Przestrzeń barw	Identyfikuje użytą przestrzeń barw, odpowiednio dla liczb: 0 - RGB, 1 - HSV, 2 - HSL, 3 - YUV
 3	3	1	Ilość bitów na piksel	Format obsługuje tylko 24 bitowy opis piksela. Pole służy jako informacja dla odbiorcy.
-4	4	4	Szerokość	Szerokość w pixelach, z uwagi na rozmiar pola maksymalna szerokość obrazka to 4294967295 pixeli
-5	8	4	Wysokość	Wysokość w pixelach, z uwagi na rozmiar pola maksymalna szerokość obrazka to 4294967295 pixeli
+4	4	4	Szerokość	Szerokość w pixelach, z uwagi na rozmiar pola maksymalna szerokość obrazka to 21474883647 pixeli
+5	8	4	Wysokość	Wysokość w pixelach, z uwagi na rozmiar pola maksymalna szerokość obrazka to 21474883647 pixeli
 
 6	12	4*5*3/8 (ten rozmiar powinien być dużo mniejszy po LZW)	DANE OBRAZU	Ciąg bajtów opisujący obraz uzyskany w wyniku kompresji algorytmem LZW.
 ```

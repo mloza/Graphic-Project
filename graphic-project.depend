@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1325804213 source:d:\graphic-project\main.cpp
+	<iostream>
+	<fstream>
+	"uint2x12_t.h"
+	"decoder.h"
+
+1325804289 d:\graphic-project\decoder.h
+
+1325800717 d:\graphic-project\uint2x12_t.h
+
+1325801054 source:d:\graphic-project\decoder.h
+
+1325804260 source:d:\graphic-project\decoder.cpp
+	<iostream>
+	"decoder.h"
+

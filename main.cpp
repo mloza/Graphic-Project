@@ -1,6 +1,22 @@
 #include <iostream>
+#include <fstream>
+
+// Pliki wspólne
+#include "uint2x12_t.h"
+
+// Pliki do kodera
+
+// Pliki do dekodera
+#include "decoder.h"
 
 using namespace std;
+
+struct fileinfo {
+    int colors : 8;
+    int bpc : 8; //bits per color
+    int width : 32;
+    int height : 32; //licząc max szerokość zapomniałem o bicie znaku, tutaj będzie 21474883647
+};
 
 struct colors {
     void RGBToYUV() {}
@@ -33,6 +49,35 @@ struct colors {
  */
 int main(int argc, char** argv)
 {
-    cout << "Hello world!" << endl;
+    //Zapis
+    fstream file("file.bpam", ios::binary|ios::out);
+
+    fileinfo* f = new fileinfo;
+    f->bpc = 24;
+    f->colors = 4;
+    f->width = 100;
+    f->height = 100;
+
+    file << ':' << ')';
+    file.write((char*)&f, sizeof(fileinfo));
+    file.close();
+    delete file;
+
+    //Odczyt informacji
+    file.open("file.bpam", ios::binary|ios::in);
+
+    char signs[2];
+    file >> signs[0] >> signs[1];
+
+    if(signs[0] == ':' && signs[1] == ')')
+    {
+        cout << "Plik typu bpam, odczytano nastepujace liczby:\n" ;
+        f = new fileinfo;
+        file.read((char*)&f, sizeof(fileinfo));
+        cout << f->colors << endl << f->bpc << endl << f->width << endl << f->height;
+    } else {
+        cout << "Nieprawidłowy typ pliku";
+    }
+
     return 0;
 }
