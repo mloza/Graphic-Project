@@ -10,3 +10,12 @@ bool saveFile()
     return true;
 }
 
+bool loadBMPFile()
+{
+    return true;
+}
+
+bool saveBMPFile()
+{
+    return true;
+}

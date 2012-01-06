@@ -1,8 +1,8 @@
 #ifndef UINT2x12_T_H
 #define UINT2x12_T_H
 
-#pragma pack(push, 1)
-
+#pragma pack(push)       /* zapamiętaj bieżącą wartość wyrównania struktur */
+#pragma pack(1)          /* brak wyrównania */
 /**
  *  @brief Struktura do przechowywania dwóch słów kodowych LZW (12 bitowe indeksy słownika).
  *

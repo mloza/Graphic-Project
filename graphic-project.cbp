@@ -44,8 +44,8 @@
 		<Unit filename="decoder.h">
 			<Option target="Debug" />
 		</Unit>
-		<Unit filename="fileformat.cpp" />
-		<Unit filename="fileformat.h" />
+		<Unit filename="filesformats.cpp" />
+		<Unit filename="filesformats.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="uint2x12_t.h" />
 		<Extensions>

@@ -74,7 +74,7 @@ int main(int argc, char** argv)
         cout << "Nieprawidłowy typ pliku";
     }
 
-    /* ==== TEST KODOWANIA LZW (kompiluje się więc zostawiam, ale nie działa jak trzeba) ==== */
+    /* ==== TEST KODOWANIA LZW  ==== */
     char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
     cout << "\n\nTEST KODOWANIA LZW:\n";
     coder::lzw(tablica, 36);
