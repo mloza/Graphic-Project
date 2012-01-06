@@ -21,18 +21,19 @@
 
 1325806263 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.h
 
-1325807627 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.cpp
+1325860780 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.cpp
 	"coder.h"
 	<iostream>
 
-1325807344 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.h
+1325860146 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.h
+	<string>
 
 1325807246 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/fileformat.cpp
 	"fileformat.h"
 
 1325807247 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/fileformat.h
 
-1325807689 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/main.cpp
+1325861442 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/main.cpp
 	<iostream>
 	<fstream>
 	"uint2x12_t.h"
@@ -41,4 +42,9 @@
 	"decoder.h"
 
 1325800101 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/uint2x12_t.h
+
+1325849964 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.cpp
+	"filesformats.h"
+
+1325849944 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.h
 
