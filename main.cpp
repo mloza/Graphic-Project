@@ -3,20 +3,15 @@
 
 // Pliki wspólne
 #include "uint2x12_t.h"
+#include "fileformat.h"
 
 // Pliki do kodera
+#include "coder.h"
 
 // Pliki do dekodera
 #include "decoder.h"
 
 using namespace std;
-
-struct fileinfo {
-    int colors : 8;
-    int bpc : 8; //bits per color
-    int width : 32;
-    int height : 32; //licząc max szerokość zapomniałem o bicie znaku, tutaj będzie 21474883647
-};
 
 struct colors {
     void RGBToYUV() {}
@@ -61,7 +56,7 @@ int main(int argc, char** argv)
     file << ':' << ')';
     file.write((char*)&f, sizeof(fileinfo));
     file.close();
-    delete file;
+//    delete file; // TODO: Co to jest? Nie powinno być delete f?
 
     //Odczyt informacji
     file.open("file.bpam", ios::binary|ios::in);
