@@ -4,7 +4,6 @@
 #include <string>
 
 using namespace std;
-
 namespace coder {
     /**
      *  Funkcja uruchamiająca koder realizujący wczytanie pliku BMP i zapisanie obrazu w naszym formacie.

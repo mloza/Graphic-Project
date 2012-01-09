@@ -56,7 +56,6 @@ int main(int argc, char** argv)
     file << ':' << ')';
     file.write((char*)&f, sizeof(fileinfo));
     file.close();
-//    delete file; // TODO: Co to jest? Nie powinno być delete f?
 
     //Odczyt informacji
     file.open("file.bpam", ios::binary|ios::in);
@@ -79,5 +78,10 @@ int main(int argc, char** argv)
     cout << "\n\nTEST KODOWANIA LZW:\n";
     coder::lzw(tablica, 36);
 
+    /* ==== TEST DEKODOWANIA LZW ==== */
+    // jako dane wejściowe używam wyjścia z poprzedniej funkcji
+    uint16_t tablica2[21] = {0,256,1,258,1,2,256,3,1,3,2,261,262,3,269,260,260,263,267,259,269};
+    cout << "\n\nTEST DEKODOWANIA LZW:\n";
+    decoder::lzw(tablica2, 20);
     return 0;
 }

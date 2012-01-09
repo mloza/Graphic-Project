@@ -1,17 +1,19 @@
 # depslib dependency file v1.0
-1325804213 source:d:\graphic-project\main.cpp
+1326059793 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	"uint2x12_t.h"
+	"fileformat.h"
+	"coder.h"
 	"decoder.h"
 
-1325804289 d:\graphic-project\decoder.h
+1326144829 d:\graphic-project\decoder.h
 
-1325800717 d:\graphic-project\uint2x12_t.h
+1326058390 d:\graphic-project\uint2x12_t.h
 
 1325801054 source:d:\graphic-project\decoder.h
 
-1325804260 source:d:\graphic-project\decoder.cpp
+1326144783 source:d:\graphic-project\decoder.cpp
 	<iostream>
 	"decoder.h"
 
@@ -47,4 +49,19 @@
 	"filesformats.h"
 
 1325849944 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.h
+
+1326058390 source:d:\graphic-project\filesformats.cpp
+	"filesformats.h"
+
+1326060076 d:\graphic-project\filesformats.h
+	<inttypes.h>
+
+1326058390 source:d:\graphic-project\coder.cpp
+	"coder.h"
+	<iostream>
+
+1326059899 d:\graphic-project\coder.h
+	<string>
+
+1326058390 d:\graphic-project\fileformat.h
 

@@ -1,6 +1,7 @@
 #ifndef FILESFORMATS_H
 #define FILESFORMATS_H
 
+#include <inttypes.h>
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA NASZEGO FORMATU ======================= */
 
@@ -10,10 +11,10 @@
  * /TODO Okomentować to.
  */
 struct fileinfo {
-    int colors : 8;
-    int bpc : 8; //bits per color
-    unsigned int width : 32;
-    unsigned int height : 32;
+    uint8_t colors;
+    uint8_t bpc; //bits per color
+    uint32_t width;
+    uint32_t heigh;
 };
 
 bool loadFile();
