@@ -24,21 +24,25 @@
 1326189985 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.h
 	<inttypes.h>
 
-1326145065 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.cpp
+1326201011 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.cpp
 	"coder.h"
+	"filesformats.h"
 	<iostream>
 
-1326145091 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.h
+1326200990 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.h
 	<string>
+	<list>
+	"uint2x12_t.h"
 
 1325807246 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/fileformat.cpp
 	"fileformat.h"
 
 1325807247 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/fileformat.h
 
-1326188969 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/main.cpp
+1326201308 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/main.cpp
 	<iostream>
 	<fstream>
+	<list>
 	"uint2x12_t.h"
 	"fileformat.h"
 	"coder.h"
@@ -46,15 +50,16 @@
 
 1325871414 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/uint2x12_t.h
 
-1326189946 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.cpp
+1326194537 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.cpp
 	"filesformats.h"
 	<iostream>
 	<fstream>
 	<math.h>
 
-1326189966 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.h
+1326194537 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filesformats.h
 	<inttypes.h>
 	"uint2x12_t.h"
+	<string>
 
 1326058390 source:d:\graphic-project\filesformats.cpp
 	"filesformats.h"

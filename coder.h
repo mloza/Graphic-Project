@@ -2,24 +2,25 @@
 #define CODER_H_INCLUDED
 
 #include <string>
+#include <list>
+#include "uint2x12_t.h"
 
 using namespace std;
 namespace coder {
     /**
-     *  Funkcja uruchamiająca koder realizujący wczytanie pliku BMP i zapisanie obrazu w naszym formacie.
+     *  @brief Funkcja uruchamiająca koder realizujący wczytanie pliku BMP i zapisanie obrazu w naszym formacie.
+     *  @param pathIn Ścieżka do pliku wejściowego BMP.
+     *  @param pathOut Ścieżka gdzie zapisuje plik ABMP.
      */
-    void run();
+    void run(const char* pathIn, const char* pathOut);
 
     /**
      *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
-     *  @param data Dane wejściowe, które podlegają kompresji
-     *  @param dataSize Rozmiar danych wejściowych
+     *  @param data Dane wejściowe, które podlegają kompresji.
+     *  @param dataSize Rozmiar danych wejściowych.
+     *  @return Skompresowane dane wyjściowe.
      */
-    void lzw(char* dataIn, unsigned long int dataSize);
-
-    unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość słów w słowniku */
-    extern string dictionary[DICTIONARY_MAX_SIZE];       /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
-    extern unsigned int nWords;                          /**< ilość słów w słowniku */
+    std::list<uint2x12_t>* lzw(char* data, unsigned long int dataSize);
 }
 
 #endif // CODER_H_INCLUDED

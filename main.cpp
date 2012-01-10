@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <list>
 
 // Pliki wspólne
 #include "uint2x12_t.h"
@@ -33,13 +34,13 @@ struct colors {
  *  argv[1] = tryb działania, możliwe wartości:
  *            CODER - program konwertuje plik BMP do naszego formatu
  *            DECODER - program dekoduje plik z naszego formatu do BMP
- *  argv[2] = ścieżka do pliku BMP który wczytujemy, albo do którego zapisujemy
- *            (w zależności od trybu działania)
- *  argv[3] = tryb koloru w jakim przechowywany będzie obraz w naszym formacie
+ *  argv[2] = ścieżka do pliku BMP/ABMP który wczytujemy - zależy od trybu działania.
+ *  argv[3] = ścieżka do pliku ABMP/BMP który zapisujemy - zależy od trybu działania.
+ *  argv[4] = tryb koloru w jakim przechowywany będzie obraz w naszym formacie
  *            RGB
  *            HSV
  *            HSL
- *  argv[4] = wybrany filtr
+ *  argv[5] = wybrany filtr
  *
  */
 int main(int argc, char** argv)
@@ -76,7 +77,16 @@ int main(int argc, char** argv)
     /* ==== TEST KODOWANIA LZW  ==== */
     char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
     cout << "\n\nTEST KODOWANIA LZW:\n";
-    coder::lzw(tablica, 36);
+    std::list<uint2x12_t> *wynik = coder::lzw(tablica, 36);
+    list<uint2x12_t>::iterator it;
+
+    cout << "mylist contains:";
+    for( it=wynik->begin() ; it != wynik->end(); it++ )
+    {
+        cout << " " << it->v1;
+        cout << " " << it->v2;
+    }
+
 
     /* ==== TEST DEKODOWANIA LZW ==== */
     // jako dane wejściowe używam wyjścia z poprzedniej funkcji
