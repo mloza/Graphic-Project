@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 #include "uint2x12_t.h"
+#include <string>
+using namespace std;
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA NASZEGO FORMATU ======================= */
 
@@ -72,7 +74,16 @@ struct BITMAPINFOHEADER
 };
 #pragma pack(pop)
 
-bool loadBMPFile();
+
+/**
+ *  @brief Funckja wczytująca plik w formacie *.BMP.
+ *
+ *  @param path Ścieżka do pliku, który chcemy odczytać.
+ *  @param bitmapInfoHeader Parametr wyjściowy funkcji, w którym zostanie przekazany nagłówek pliku BMP.
+ *  @param data Wskaźnik pod którym zostanie zapisany odczytany obraz (przydział pamięci jest realizowany dynamicznie w funkcji, użytkownik sam musi ją zwolnić).
+ *
+ */
+bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data);
 bool saveBMPFile();
 
 #endif // FILESFORMATS_H

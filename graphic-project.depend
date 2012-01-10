@@ -71,3 +71,29 @@
 
 1326058390 d:\graphic-project\fileformat.h
 
+1326193811 source:/home/bartek/projekt_grafika/coder.cpp
+	"coder.h"
+	<iostream>
+
+1326184958 /home/bartek/projekt_grafika/coder.h
+	<string>
+
+1326184958 source:/home/bartek/projekt_grafika/decoder.cpp
+	<iostream>
+	"decoder.h"
+
+1326193811 /home/bartek/projekt_grafika/decoder.h
+	<inttypes.h>
+
+1326193811 source:/home/bartek/projekt_grafika/main.cpp
+	<iostream>
+	<fstream>
+	"uint2x12_t.h"
+	"fileformat.h"
+	"coder.h"
+	"decoder.h"
+
+1326184958 /home/bartek/projekt_grafika/uint2x12_t.h
+
+1325873509 /home/bartek/projekt_grafika/fileformat.h
+
