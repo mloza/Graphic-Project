@@ -16,7 +16,7 @@ struct FILEINFO {
     uint8_t bpc; //bits per color TODO: A moze bpp, czyli na piksel ? Np. 24 w naszym wypadku
     uint32_t width;
     uint32_t heigh;
-    uint64_t numberOf12;
+    uint32_t numberOf12;
 };
 
 
