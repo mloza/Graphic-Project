@@ -2,6 +2,7 @@
 #define FILESFORMATS_H
 
 #include <inttypes.h>
+#include "uint2x12_t.h"
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA NASZEGO FORMATU ======================= */
 
@@ -10,15 +11,26 @@
  *
  * /TODO Okomentować to.
  */
-struct fileinfo {
+struct FILEINFO {
     uint8_t colors;
-    uint8_t bpc; //bits per color
+    uint8_t bpc; //bits per color TODO: A moze bpp, czyli na piksel ? Np. 24 w naszym wypadku
     uint32_t width;
     uint32_t heigh;
+    uint64_t numberOf12;
 };
 
+
 bool loadFile();
-bool saveFile();
+
+/**
+ *  @brief Funckja tworząca plik naszego formatu.
+ *
+ *  @param path Ścieżka do pliku wynikowego.
+ *  @param fileinfo Uzupełniona struktura nagłówka naszego formatu.
+ *  @param data Skompresowane dane obrazu.
+ *
+ */
+bool saveFile(const char*, FILEINFO* fileinfo, uint2x12_t* data);
 
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA FORMATU BMP =========================== */

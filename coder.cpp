@@ -6,7 +6,7 @@ string coder::dictionary[DICTIONARY_MAX_SIZE];
 
 void coder::run()
 {
-    std::cout << "Uruchomiono koder.\nRozpoczynam konwersje pliku BMP do formatu BPAM\n";
+    std::cout << "Uruchomiono koder.\nRozpoczynam konwersje pliku BMP do formatu BPAM(RGB, bez filtra)" << endl;
 }
 
 /*

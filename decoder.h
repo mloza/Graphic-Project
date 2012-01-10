@@ -1,6 +1,8 @@
 #ifndef DECODER_H_INCLUDED
 #define DECODER_H_INCLUDED
 
+#include <inttypes.h>
+
 using namespace std;
 namespace decoder {
     /**
