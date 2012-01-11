@@ -141,8 +141,22 @@ bool saveBMPFile(string path, int width, int height, unsigned char *imageData)
     file.write((char*)bfh, sizeof(BITMAPFILEHEADER));
     file.write((char*)bih, sizeof(BITMAPINFOHEADER));
 
-    //zapisujemy dane
-    file.write((char*)imageData, bih->biSizeImage);
+    //zapisujemy dane kierunek: lewy dolny róg  -> prawy górny róg
+    for(int i=bih->biHeight-1; i>=0; i--)
+    {
+        int j;
+        for(j=0; j < bih->biWidth*3; j++)
+        {
+            file << (char)imageData[i*bih->biWidth*3+j];
+            cout << i*bih->biWidth*3+j << " ";
+        }
+        // dopełniennie
+        while(j%4 != 0)
+        {
+            file << (char)0;
+            j++;
+        }
+    }
 
     //zamykamy plik
     file.close();

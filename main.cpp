@@ -91,7 +91,7 @@ int main(int argc, char** argv)
     //coder::run("test.bmp", "skompresowany.abmp");
         BITMAPINFOHEADER bmpih;
     unsigned char* bitmapImageData;
-    loadBMPFile("test.bmp", &bmpih, bitmapImageData);
+    //loadBMPFile("test.bmp", &bmpih, bitmapImageData);
 
     /* ==== TEST DEKODOWANIA LZW ==== */
     // jako dane wejściowe używam wyjścia z poprzedniej funkcji
