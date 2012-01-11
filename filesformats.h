@@ -14,10 +14,11 @@ using namespace std;
  * /TODO Okomentować to.
  */
 struct FILEINFO {
-    uint8_t colors;
-    uint8_t bpc; //bits per color TODO: A moze bpp, czyli na piksel ? Np. 24 w naszym wypadku
+    uint16_t fileType;
+    uint8_t colorSpace;
+    uint8_t bpp; //bits per pixel - np. 24 w naszym wypadku
     uint32_t width;
-    uint32_t heigh;
+    uint32_t height;
     uint32_t numberOf12;
 };
 
@@ -83,7 +84,7 @@ struct BITMAPINFOHEADER
  *  @param data Wskaźnik pod którym zostanie zapisany odczytany obraz (przydział pamięci jest realizowany dynamicznie w funkcji, użytkownik sam musi ją zwolnić).
  *
  */
-bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data);
+bool loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data);
 bool saveBMPFile();
 
 #endif // FILESFORMATS_H

@@ -2,10 +2,10 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="coder.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="3260" topLine="81" />
+		<Cursor position="2776" topLine="78" />
 	</File>
 	<File name="coder.h" open="1" top="0" tabpos="5">
-		<Cursor position="776" topLine="0" />
+		<Cursor position="806" topLine="0" />
 	</File>
 	<File name="decoder.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="938" topLine="0" />
@@ -14,13 +14,13 @@
 		<Cursor position="236" topLine="0" />
 	</File>
 	<File name="filesformats.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="509" topLine="6" />
+		<Cursor position="2593" topLine="33" />
 	</File>
 	<File name="filesformats.h" open="1" top="0" tabpos="7">
-		<Cursor position="564" topLine="0" />
+		<Cursor position="1192" topLine="54" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="2388" topLine="67" />
+		<Cursor position="2016" topLine="65" />
 	</File>
 	<File name="uint2x12_t.h" open="1" top="0" tabpos="2">
 		<Cursor position="125" topLine="0" />
