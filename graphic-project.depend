@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1326310716 source:d:\graphic-project\main.cpp
+1326314915 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	<list>
 	"uint2x12_t.h"
-	"fileformat.h"
+	"filesformats.h"
 	"coder.h"
 	"decoder.h"
 
@@ -63,13 +63,13 @@
 	"uint2x12_t.h"
 	<string>
 
-1326310716 source:d:\graphic-project\filesformats.cpp
+1326312587 source:d:\graphic-project\filesformats.cpp
 	"filesformats.h"
 	<iostream>
 	<fstream>
 	<math.h>
 
-1326310716 d:\graphic-project\filesformats.h
+1326314801 d:\graphic-project\filesformats.h
 	<inttypes.h>
 	"uint2x12_t.h"
 	<string>

@@ -15,7 +15,8 @@ using namespace std;
  */
 struct FILEINFO {
     uint8_t colors;
-    uint8_t bpc; //bits per color TODO: A moze bpp, czyli na piksel ? Np. 24 w naszym wypadku
+    uint8_t bpp; //bits per pixel
+    uint8_t filtr;
     uint32_t width;
     uint32_t heigh;
     uint32_t numberOf12;
@@ -84,7 +85,16 @@ struct BITMAPINFOHEADER
  *
  */
 bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data);
-bool saveBMPFile();
+
+/**
+ *  @brief Funckja zapisuje plik w formacie *.BMP.
+ *
+ *  @param path Ścieżka do pliku, który chcemy zapisać.
+ *  @param bitmapInfoHeader Parametr wejściowy funkcji, w którym zostanie przekazany nagłówek pliku BMP.
+ *  @param data Wskaźnik pod którym powinny znajdowac się dane obarzu do zapisania
+ *
+ */
+bool saveBMPFile(string path, int width, int height, unsigned char *data);
 
 #endif // FILESFORMATS_H
 

@@ -4,7 +4,7 @@
 
 // Pliki wspólne
 #include "uint2x12_t.h"
-#include "fileformat.h"
+#include "filesformats.h"
 
 // Pliki do kodera
 #include "coder.h"
@@ -46,7 +46,7 @@ struct colors {
 int main(int argc, char** argv)
 {
     //Zapis
-    fstream file("file.bpam", ios::binary|ios::out);
+    /*fstream file("file.bpam", ios::binary|ios::out);
 
     fileinfo* f = new fileinfo;
     f->bpc = 24;
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
         cout << f->colors << endl << f->bpc << endl << f->width << endl << f->height;
     } else {
         cout << "Nieprawidłowy typ pliku";
-    }
+    }*/
 
     /* ==== TEST KODOWANIA LZW  ==== */
     char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
@@ -93,6 +93,10 @@ int main(int argc, char** argv)
     uint16_t tablica2[21] = {0,256,1,258,1,2,256,3,1,3,2,261,262,3,269,260,260,263,267,259,269};
     cout << "\n\nTEST DEKODOWANIA LZW:\n";
     decoder::lzw(tablica2, 20);
+
+    /* ==== ZAPIS Bitmapy ==== */
+    unsigned char data[12] = { 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 255, 0 };
+    saveBMPFile("test.bmp", 2, 2, data);
 
     return 0;
 }

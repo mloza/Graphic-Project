@@ -96,8 +96,49 @@ bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char 
     }
 }
 
-bool saveBMPFile()
+bool saveBMPFile(string path, int width, int height, unsigned char *imageData)
 {
-    // just comment to test git
+    // Tworzenie nagłóków pliku
+    BITMAPFILEHEADER *bfh = new BITMAPFILEHEADER;
+    bfh->bfSize = sizeof(BITMAPINFOHEADER);
+    bfh->bfType = 0x4D42;
+    bfh->bfReserved1 = 0;
+    bfh->bfReserved2 = 0;
+    bfh->bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+
+    BITMAPINFOHEADER *bih = new BITMAPINFOHEADER;
+    bih->biSize = sizeof(BITMAPINFOHEADER);
+    bih->biPlanes = 1;
+    bih->biBitCount = 24;
+    bih->biCompression = 0;//BI_RGB;
+    bih->biSizeImage = width * height * 3;
+    bih->biXPelsPreMeter = 0;
+    bih->biYPelsPerMeter = 0;
+    bih->biClrUsed = 0;
+    bih->biClrImportant = 0;
+    bih->biWidth = width;
+    bih->biHeight = height;
+
+    // odwracanie kolorów RGB -> GBR
+    unsigned char tempRGB;
+    for(unsigned int imageIdx = 0; imageIdx < bih->biSizeImage; imageIdx += 3)
+    {
+        tempRGB = imageData[imageIdx];
+        imageData[imageIdx] = imageData[imageIdx+2];
+        imageData[imageIdx + 2] = tempRGB;
+    }
+
+    //otwieranie pliku
+    ofstream file("asd.bmp", ios::binary);
+
+     //zapisujemy nagłówki
+    file.write((char*)bfh, sizeof(BITMAPFILEHEADER));
+    file.write((char*)bih, sizeof(BITMAPINFOHEADER));
+
+    //zapisujemy dane
+    file.write((char*)imageData, bih->biSizeImage);
+
+    //zamykamy plik
+    file.close();
     return true;
 }
