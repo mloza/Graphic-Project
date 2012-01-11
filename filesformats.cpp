@@ -150,7 +150,7 @@ bool saveBMPFile(string path, int width, int height, unsigned char *imageData)
             file << (char)imageData[i*bih->biWidth*3+j];
             cout << i*bih->biWidth*3+j << " ";
         }
-        // dopełniennie
+        // dopełnienie
         while(j%4 != 0)
         {
             file << (char)0;

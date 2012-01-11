@@ -13,9 +13,18 @@ namespace decoder {
         cout << "DECODER";
     }
 
-    void lzw(uint16_t dataIn[], unsigned long int dataSize)
+    bool in_dict(string word)
     {
-        long unsigned int actualIdx = 0; // Index aktualnie pobieranego bajtu danych wejściowych
+        for(int i =0; i<nWords; i++)
+        {
+            if(disctionary[i] == word) return true;
+        }
+
+        return false;
+    }
+
+    void lzw(std::list<uint2x12_t>* dataIn, unsigned long int dataSize)
+    {
         string word = "";
 
         for(int i=0; i< 256; i++)
@@ -24,10 +33,14 @@ namespace decoder {
             nWords++;
         }
 
-        // Dekodowanie danych dopóki mamy dane na wejściu
-        for(;actualIdx < dataSize; actualIdx++)
+        list<uint2x12_t>::iterator it;
+        for( it=wynik->begin() ; it != wynik->end(); it++ )
         {
-
+            cout << " " << it->v1;
+            cout << " " << it->v2;
         }
+
+
+
     }
 }
