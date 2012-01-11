@@ -98,5 +98,6 @@ bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char 
 
 bool saveBMPFile()
 {
+    // just comment to test git
     return true;
 }
