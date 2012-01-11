@@ -2,9 +2,16 @@
 #include "filesformats.h"
 #include <iostream>
 #include <fstream>
-#include <stdlib.h>
+#include <sstream>
 
 using namespace std;
+
+string toStr(int a)
+{
+    stringstream ss;
+    ss << a;
+    return ss.str();
+}
 
 unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość słów w słowniku */
 std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
@@ -13,12 +20,13 @@ unsigned int nWords = 0;                             /**< ilość słów w słow
 bool coder::run(const char* pathIn, const char* pathOut)
 {
     BITMAPINFOHEADER bmpih;
-    unsigned char* bitmapImageData;
+    unsigned char* bitmapImageData = 0;
     FILEINFO fileinfo;
     std::list<uint2x12_t> *compressedImage;
 
-    std::cout << "Uruchomiono koder.\nRozpoczynam konwersje pliku BMP do formatu BPAM(RGB, bez filtra)" << endl;
-    if(!loadBMPFile(pathIn, &bmpih, bitmapImageData))
+    std::cout << "URUCHOMIONO KODER\nRozpoczynam konwersje pliku BMP do formatu ABMP (RGB, bez filtra)" << endl;
+    bitmapImageData = loadBMPFile(pathIn, &bmpih);
+    if(!bitmapImageData)
     {
         cout << "Nie udalo wczytac sie pliku BMP " << pathIn << endl;
         return false;
@@ -26,9 +34,16 @@ bool coder::run(const char* pathIn, const char* pathOut)
 
     // TODO filtry i wybór koloru
 
+    compressedImage = lzw(bitmapImageData, bmpih.biSizeImage);
 
-//    compressedImage = lzw(bitmapImageData, bmpih.biSizeImage);
-/*
+    /*cout << "compressedImage contains:";
+    list<uint2x12_t>::iterator it;
+    for( it=compressedImage->begin() ; it != compressedImage->end(); it++ )
+    {
+        cout << " " << it->v1;
+        cout << " " << it->v2;
+    }*/
+
     fileinfo.fileType = ':)';
     fileinfo.colorSpace = 0; // TODO :ZMIENIĆ
     fileinfo.bpp = 24;
@@ -36,17 +51,9 @@ bool coder::run(const char* pathIn, const char* pathOut)
     fileinfo.height = bmpih.biHeight;
     fileinfo.numberOf12;
 
-    ofstream out(pathIn, ios::binary);
-    if(!out.good())
-    {
-        cout << "Nie udalo sie utworzyc pliku " << pathIn << endl;
-        return false;
-    }
+    saveFile(pathOut, &fileinfo, compressedImage);
 
-    //out.write((char*)&fileinfo, sizeof(FILEINFO));
-    //out.write((char*)compressedImage, sizeof(uint2x12_t) * fileinfo.numberOf12);
-    //out.close();
-    */
+
 }
 
 /*
@@ -87,10 +94,10 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
 
 
     uint2x12_t tmp;
-    // Kodowanie danych dopóki mamy dane na wejściu: jednen obieg pętli wykonuje 2 kroki
+    // Kodowanie danych dopóki mamy dane na wejściu
     while(actualIdx < dataSize)
     {
-        if(getDictionaryIdx(word + data[actualIdx]) < 0)
+        if(getDictionaryIdx(word + (char)data[actualIdx]) < 0)
         {
             // Jeżeli nie ma słowa z aktualnym znakiem w słowniku to zapisuj pod odpowiednie pola uint2x12_t
             if(numberOf12 % 2 == 0)
@@ -107,7 +114,7 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
 
             if(nWords < DICTIONARY_MAX_SIZE)
             {
-                dictionary[nWords] = word + data[actualIdx]; // dodaj słowo z aktualnym znakiem do słownika
+                dictionary[nWords] = word + (char)data[actualIdx]; // dodaj słowo z aktualnym znakiem do słownika
                 nWords++;
             }
 

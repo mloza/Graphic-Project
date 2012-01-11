@@ -4,6 +4,7 @@
 #include <inttypes.h>
 #include "uint2x12_t.h"
 #include <string>
+#include <list>
 using namespace std;
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA NASZEGO FORMATU ======================= */
@@ -33,7 +34,7 @@ bool loadFile();
  *  @param data Skompresowane dane obrazu.
  *
  */
-bool saveFile(const char*, FILEINFO* fileinfo, uint2x12_t* data);
+bool saveFile(const char*, FILEINFO* fileinfo, std::list<uint2x12_t> * data);
 
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA FORMATU BMP =========================== */
@@ -85,7 +86,7 @@ struct BITMAPINFOHEADER
  *
  */
 
-bool loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data);
+unsigned char* loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader);
 
 /**
  *  @brief Funckja zapisuje plik w formacie *.BMP.
