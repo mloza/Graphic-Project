@@ -18,7 +18,7 @@ namespace decoder {
      *  @param data Dane wejsciowe, które podlegają dekompresji
      *  @param dataSize Rozmiar danych wejściowych
      */
-    void lzw(std::list<uint2x12_t>* dataIn, unsigned long int dataSize);
+    void lzw(std::list<uint2x12_t>* dataIn);
 }
 
 #endif // DECODER_H_INCLUDED

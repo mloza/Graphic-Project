@@ -17,13 +17,13 @@ namespace decoder {
     {
         for(int i =0; i<nWords; i++)
         {
-            if(disctionary[i] == word) return true;
+            if(dictionary[i] == word) return true;
         }
 
         return false;
     }
 
-    void lzw(std::list<uint2x12_t>* dataIn, unsigned long int dataSize)
+    void lzw(std::list<uint2x12_t>* dataIn)
     {
         string word = "";
 
@@ -34,10 +34,11 @@ namespace decoder {
         }
 
         list<uint2x12_t>::iterator it;
-        for( it=wynik->begin() ; it != wynik->end(); it++ )
+        for( it=dataIn->begin() ; it != dataIn->end(); it++ )
         {
-            cout << " " << it->v1;
-            cout << " " << it->v2;
+            word = it->v1;
+            //cout << " " << it->v1;
+            //cout << " " << it->v2;
         }
 
 

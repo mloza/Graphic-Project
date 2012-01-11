@@ -106,7 +106,7 @@ test.close();
     }
 }
 
-bool saveBMPFile(string path, int width, int height, unsigned char *imageData)
+bool saveBMPFile(const char* path, int width, int height, unsigned char *imageData)
 {
     // Tworzenie nagłóków pliku
     BITMAPFILEHEADER *bfh = new BITMAPFILEHEADER;
@@ -139,7 +139,7 @@ bool saveBMPFile(string path, int width, int height, unsigned char *imageData)
     }
 
     //otwieranie pliku
-    ofstream file("asd.bmp", ios::binary);
+    ofstream file(path, ios::binary);
 
      //zapisujemy nagłówki
     file.write((char*)bfh, sizeof(BITMAPFILEHEADER));
