@@ -104,5 +104,6 @@ test.close();
 
 bool saveBMPFile()
 {
+    // just comment to test git
     return true;
 }
