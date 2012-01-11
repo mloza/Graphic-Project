@@ -11,8 +11,9 @@ namespace coder {
      *  @brief Funkcja uruchamiająca koder realizujący wczytanie pliku BMP i zapisanie obrazu w naszym formacie.
      *  @param pathIn Ścieżka do pliku wejściowego BMP.
      *  @param pathOut Ścieżka gdzie zapisuje plik ABMP.
+     *  @return True jeśli wszystko przebiegło pomyślnie.
      */
-    void run(const char* pathIn, const char* pathOut);
+    bool run(const char* pathIn, const char* pathOut);
 
     /**
      *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
@@ -20,7 +21,7 @@ namespace coder {
      *  @param dataSize Rozmiar danych wejściowych.
      *  @return Skompresowane dane wyjściowe.
      */
-    std::list<uint2x12_t>* lzw(char* data, unsigned long int dataSize);
+    std::list<uint2x12_t>* lzw(unsigned char* data, unsigned long int dataSize);
 }
 
 #endif // CODER_H_INCLUDED

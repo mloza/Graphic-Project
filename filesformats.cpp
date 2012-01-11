@@ -30,7 +30,7 @@ bool saveFile(const char* path, FILEINFO* fileinfo, uint2x12_t* data)
     return true;
 }
 
-bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data)
+bool loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char *data)
 {
 
     BITMAPFILEHEADER bitmapFileHeader; // nagłówek pliku
@@ -39,7 +39,7 @@ bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char 
 
     // otwarcie pliku w trybie binarnym
     ifstream infile;
-    infile.open("tst.bmp", ios::binary);
+    infile.open(path, ios::binary);
     if(infile.good())
     {
         // wczytanie nagłówka pliku
@@ -83,11 +83,17 @@ bool loadBMPFile(string path, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char 
 
         }
 
+    ofstream test("OBRAZ_BMP.txt");
         // zamiana na format RGB z formatu BGR (BGR jest domyślnie w BMP)
         for(imageIdx = 0; imageIdx < bitmapInfoHeader->biSizeImage; imageIdx += 3 )
+        {
             swap(data[imageIdx], data[imageIdx+2]);
+            test << (int)data[imageIdx]<< " " << (int)data[imageIdx + 1] << " " << (int)data[imageIdx + 2] << endl;
+        }
+test.close();
 
         infile.close();
+        return 1;
     }
     else
     {
