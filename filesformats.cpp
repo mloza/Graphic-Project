@@ -98,14 +98,9 @@ unsigned char* loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader)
 
         }
 
-    ofstream test("OBRAZ_BMP.txt");
         // zamiana na format RGB z formatu BGR (BGR jest domyślnie w BMP)
         for(imageIdx = 0; imageIdx < bitmapInfoHeader->biSizeImage; imageIdx += 3 )
-        {
             swap(data[imageIdx], data[imageIdx+2]);
-            test << (int)data[imageIdx]<< " " << (int)data[imageIdx + 1] << " " << (int)data[imageIdx + 2] << endl;
-        }
-test.close();
 
         infile.close();
         return data;

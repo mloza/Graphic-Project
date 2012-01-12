@@ -16,6 +16,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
     unsigned char* bitmapImageData = 0;
     FILEINFO fileinfo;
     std::list<uint2x12_t> *compressedImage;
+    unsigned int numberOf12 = 0;
 
     std::cout << "URUCHOMIONO KODER\nRozpoczynam konwersje pliku BMP do formatu ABMP (RGB, bez filtra)" << endl;
     bitmapImageData = loadBMPFile(pathIn, &bmpih);
@@ -27,7 +28,8 @@ bool coder::run(const char* pathIn, const char* pathOut)
 
     // TODO filtry i wybór koloru
 
-    compressedImage = lzw(bitmapImageData, bmpih.biSizeImage);
+
+    compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 
     /*cout << "compressedImage contains:";
     list<uint2x12_t>::iterator it;
@@ -42,7 +44,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
     fileinfo.bpp = 24;
     fileinfo.width = bmpih.biWidth;
     fileinfo.height = bmpih.biHeight;
-    fileinfo.numberOf12;
+    fileinfo.numberOf12 = numberOf12;
 
     if(!saveFile(pathOut, &fileinfo, compressedImage))
         return false;
@@ -70,9 +72,10 @@ int getDictionaryIdx(string word)
  *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
  *  @param data Dane wejściowe, które podlegają kompresji.
  *  @param dataSize Rozmiar danych wejściowych.
+ *  @param numberOf12 Ilość 12-bitowych indeksów powstałych na skutek kompresji.
  *  @return Skompresowane dane wyjściowe.
  */
-std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSize)
+std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSize, unsigned int *numberOf12_in)
 {
     nWords = 0; // Zeruj zmienna globalna z iloscia slow przed kazda kompresja
     unsigned int numberOf12 = 0; // Ilość zapisanych dwunastobitowych indeksów
@@ -147,5 +150,6 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
     }
 
     cout << "Dane skompresowane to "<< compressedData->size() *sizeof(uint2x12_t) << " B\n";
+    *numberOf12_in = numberOf12;
     return compressedData;
 };

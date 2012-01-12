@@ -20,9 +20,10 @@ namespace coder {
      *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
      *  @param data Dane wejściowe, które podlegają kompresji.
      *  @param dataSize Rozmiar danych wejściowych.
+     *  @param numberOf12 Ilość 12-bitowych indeksów powstałych na skutek kompresji.
      *  @return Skompresowane dane wyjściowe.
      */
-    std::list<uint2x12_t>* lzw(unsigned char* data, unsigned long int dataSize);
+    std::list<uint2x12_t>* lzw(unsigned char* data, unsigned long int dataSize, unsigned int *numberOf12_in);
 }
 
 #endif // CODER_H_INCLUDED
