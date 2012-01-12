@@ -6,13 +6,6 @@
 
 using namespace std;
 
-string toStr(int a)
-{
-    stringstream ss;
-    ss << a;
-    return ss.str();
-}
-
 unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość słów w słowniku */
 std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords = 0;                             /**< ilość słów w słowniku */
@@ -35,6 +28,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
     // TODO filtry i wybór koloru
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage);
+    cout << "Rozmiar skompresowanego obrazu: " << compressedImage->size() * 3 /1024 << " kB" << endl;
 
     /*cout << "compressedImage contains:";
     list<uint2x12_t>::iterator it;
@@ -51,9 +45,8 @@ bool coder::run(const char* pathIn, const char* pathOut)
     fileinfo.height = bmpih.biHeight;
     fileinfo.numberOf12;
 
-    saveFile(pathOut, &fileinfo, compressedImage);
-
-
+    if(!saveFile(pathOut, &fileinfo, compressedImage))
+        return false;
 }
 
 /*
@@ -116,6 +109,16 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
             {
                 dictionary[nWords] = word + (char)data[actualIdx]; // dodaj słowo z aktualnym znakiem do słownika
                 nWords++;
+            }
+            else
+            {
+                static bool wypisano = false;
+                if(!wypisano)
+                {
+                    cout << "Slownik sie zapelnil przy " << actualIdx << " bajcie danych wejsciowych [rozmiar danych we = " << dataSize << "]\n";
+                    wypisano = true;
+                }
+
             }
 
             word=""; // Wyzeruj słowo, poniżej dodawany jest do niego aktualny znak
