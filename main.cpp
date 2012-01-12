@@ -76,7 +76,7 @@ int main(int argc, char** argv)
     }*/
 
     /* ==== TEST KODOWANIA LZW  ==== */
-    unsigned char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
+    /*unsigned char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
     cout << "\n\nTEST KODOWANIA LZW:\n";
     std::list<uint2x12_t> *wynik = coder::lzw(tablica, 36);
     list<uint2x12_t>::iterator it;
@@ -86,7 +86,7 @@ int main(int argc, char** argv)
     {
         cout << " " << it->v1;
         cout << " " << it->v2;
-    }
+    }*/
 
     coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp");
     //coder::run("_test.bmp", "_test.abmp");
