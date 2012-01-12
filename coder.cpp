@@ -28,7 +28,6 @@ bool coder::run(const char* pathIn, const char* pathOut)
     // TODO filtry i wybór koloru
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage);
-    cout << "Rozmiar skompresowanego obrazu: " << compressedImage->size() * 3 /1024 << " kB" << endl;
 
     /*cout << "compressedImage contains:";
     list<uint2x12_t>::iterator it;
@@ -49,7 +48,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
         return false;
 }
 
-/*
+/**
  *  @brief Funkcja sprawdza na jakiej pozycji w słowniku znajduje się dane słowo.
  *  @param word Słowo do sprawdzenia.
  *  @return Indeks słowa jeśli jest w słowniku, w przeciwnym wypadku -1;
@@ -66,6 +65,7 @@ int getDictionaryIdx(string word)
 
     return -1;
 }
+
 /**
  *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
  *  @param data Dane wejściowe, które podlegają kompresji.
@@ -74,6 +74,7 @@ int getDictionaryIdx(string word)
  */
 std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSize)
 {
+    nWords = 0; // Zeruj zmienna globalna z iloscia slow przed kazda kompresja
     unsigned int numberOf12 = 0; // Ilość zapisanych dwunastobitowych indeksów
     std::list<uint2x12_t> *compressedData = new std::list<uint2x12_t>;
     unsigned long int actualIdx = 0; // Index aktualnie pobieranego bajtu danych wejściowych
@@ -145,5 +146,6 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
         compressedData->push_back(tmp);
     }
 
+    cout << "Dane skompresowane to "<< compressedData->size() *sizeof(uint2x12_t) << " B\n";
     return compressedData;
 };
