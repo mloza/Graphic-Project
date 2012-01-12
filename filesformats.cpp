@@ -152,7 +152,7 @@ bool saveBMPFile(const char* path, int width, int height, std::vector<unsigned c
     file.write((char*)bih, sizeof(BITMAPINFOHEADER));
 
     //zapisujemy dane kierunek: lewy dolny róg  -> prawy górny róg
-    for(int i=bih->biHeight-1; i>=0; i--)
+    for(int i= 0; i<bih->biHeight; i++)
     {
         int j;
         for(j=0; j < bih->biWidth*3; j++)

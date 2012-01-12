@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1326385516 source:d:\graphic-project\main.cpp
+1326390210 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	<list>
@@ -95,14 +95,14 @@
 	<list>
 	<vector>
 
-1326385011 source:d:\graphic-project\coder.cpp
+1326390210 source:d:\graphic-project\coder.cpp
 	"coder.h"
 	"filesformats.h"
 	<iostream>
 	<fstream>
 	<sstream>
 
-1326385011 d:\graphic-project\coder.h
+1326390210 d:\graphic-project\coder.h
 	<string>
 	<list>
 	<inttypes.h>
