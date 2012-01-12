@@ -96,7 +96,7 @@ unsigned char* loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader)
  *  @param data Wskaźnik pod którym powinny znajdowac się dane obarzu do zapisania
  *
  */
-bool saveBMPFile(string path, int width, int height, unsigned char *data);
+bool saveBMPFile(const char* path, int width, int height, unsigned char *data);
 
 #endif // FILESFORMATS_H
 

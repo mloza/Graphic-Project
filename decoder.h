@@ -2,6 +2,9 @@
 #define DECODER_H_INCLUDED
 
 #include <inttypes.h>
+#include <string>
+#include <list>
+#include "uint2x12_t.h"
 
 using namespace std;
 namespace decoder {
@@ -15,7 +18,7 @@ namespace decoder {
      *  @param data Dane wejsciowe, które podlegają dekompresji
      *  @param dataSize Rozmiar danych wejściowych
      */
-    void lzw(uint16_t dataIn[], unsigned long int dataSize);
+    void lzw(std::list<uint2x12_t>* dataIn);
 }
 
 #endif // DECODER_H_INCLUDED
