@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1326382327 source:d:\graphic-project\main.cpp
+1326385516 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	<list>
@@ -79,23 +79,24 @@
 	<fstream>
 	<math.h>
 
-1326384363 d:\graphic-project\filesformats.h
+1326385011 d:\graphic-project\filesformats.h
 	<inttypes.h>
 	"uint2x12_t.h"
 	<string>
 	<list>
 	<vector>
 
-1326328244 source:d:\graphic-project\coder.cpp
+1326385011 source:d:\graphic-project\coder.cpp
 	"coder.h"
 	"filesformats.h"
 	<iostream>
 	<fstream>
 	<sstream>
 
-1326317330 d:\graphic-project\coder.h
+1326385011 d:\graphic-project\coder.h
 	<string>
 	<list>
+	<inttypes.h>
 	"uint2x12_t.h"
 
 1326058390 d:\graphic-project\fileformat.h

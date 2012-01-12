@@ -88,7 +88,7 @@ int main(int argc, char** argv)
         cout << " " << it->v2;
     }
 
-    coder::run("test-files/10-1200x800x24bit.bmp", "skompresowany.abmp");
+    coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp");
     //coder::run("_test.bmp", "_test.abmp");
 
     /* ==== TEST DEKODOWANIA LZW ==== */
