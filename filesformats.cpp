@@ -150,7 +150,6 @@ bool saveBMPFile(const char* path, int width, int height, unsigned char *imageDa
         for(j=0; j < bih->biWidth*3; j++)
         {
             file << (char)imageData[i*bih->biWidth*3+j];
-            cout << i*bih->biWidth*3+j << " ";
         }
         // dopełnienie
         while(j%4 != 0)
