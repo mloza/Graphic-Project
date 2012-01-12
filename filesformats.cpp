@@ -28,8 +28,6 @@ bool saveFile(const char* path, FILEINFO* fileinfo, std::list<uint2x12_t> *data)
         out.write((char*)&(*it), sizeof(uint2x12_t));
     }
 
-    //out.write((char*)data, round(fileinfo->numberOf12/2) * sizeof(uint2x12_t));
-
     out.close();
 
     return true;
