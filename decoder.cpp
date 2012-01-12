@@ -13,20 +13,9 @@ namespace decoder {
         cout << "DECODER";
     }
 
-    bool in_dict(string word)
-    {
-        for(int i =0; i<nWords; i++)
-        {
-            if(dictionary[i] == word) return true;
-        }
-
-        return false;
-    }
-
     void lzw(std::list<uint2x12_t>* dataIn)
     {
-        string word = "";
-
+        cout << "Dekoduje \n";
         for(int i=0; i< 256; i++)
         {
             dictionary[i] = i; // wypełnianie słownika alfabetem
@@ -34,14 +23,55 @@ namespace decoder {
         }
 
         list<uint2x12_t>::iterator it;
-        for( it=dataIn->begin() ; it != dataIn->end(); it++ )
+
+        unsigned int act;
+        string pc = "";
+        unsigned int pk = dataIn->begin()->v1;
+
+        cout << (int)dictionary[pk][0] << " ";
+
+        for(it=dataIn->begin(); it != dataIn->end(); ++it)
         {
-            word = it->v1;
-            //cout << " " << it->v1;
-            //cout << " " << it->v2;
+            act = it->v1;
+            for(int i = 0; i<2; i++)
+            {
+                //jeśli jest w słowniku
+                if(act < nWords)
+                {
+                    // zapisz do słownika poprzedni i pierwszy symbol aktualnego
+                    dictionary[nWords] = pc + dictionary[act][0];
+                    nWords++;
+                    // na wyjście wypisz cały aktualny
+                    for(int j = 0; j<dictionary[act].length(); j++)
+                    {
+                        cout << (int)dictionary[act][j] << " ";
+                    }
+                } else {
+                    //inaczej dodaj do słownika pc + pierwszy symbol pc;
+                    dictionary[nWords] = pc + pc[0];
+                    for(int j = 0; j<dictionary[nWords].length(); j++)
+                    {
+                        cout << (int)dictionary[nWords][j] << " ";
+                    }
+                    nWords++;
+                }
+                pk = act;
+                act = it->v2;
+            }
+            pk = act;
         }
 
+        cout << "\nSlownik: \n";
+        for(int i=0; i<nWords; i++)
+        {
+            cout << i << ":" << dictionary[i].length() << ":";
+            for(int j=0; j<dictionary[i].length(); j++)
+            {
+                cout << (int)dictionary[nWords][j] << " ";
+            }
+            cout << endl;
+        }
 
-
+        cout << "\n Koniec dekodowania \n";
     }
 }

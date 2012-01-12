@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1326323491 source:d:\graphic-project\main.cpp
+1326323722 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	<list>
@@ -18,7 +18,7 @@
 
 1325801054 source:d:\graphic-project\decoder.h
 
-1326323669 source:d:\graphic-project\decoder.cpp
+1326327178 source:d:\graphic-project\decoder.cpp
 	<iostream>
 	"decoder.h"
 
@@ -69,7 +69,7 @@
 	<string>
 	<list>
 
-1326323698 source:d:\graphic-project\filesformats.cpp
+1326324515 source:d:\graphic-project\filesformats.cpp
 	"filesformats.h"
 	<iostream>
 	<fstream>
