@@ -36,6 +36,7 @@ bool loadFile();
  */
 bool saveFile(const char*, FILEINFO* fileinfo, std::list<uint2x12_t> * data);
 
+
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA FORMATU BMP =========================== */
 

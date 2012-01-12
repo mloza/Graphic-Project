@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include <inttypes.h>
 #include "uint2x12_t.h"
 
 using namespace std;

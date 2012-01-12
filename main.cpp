@@ -81,14 +81,15 @@ int main(int argc, char** argv)
     std::list<uint2x12_t> *wynik = coder::lzw(tablica, 36);
     list<uint2x12_t>::iterator it;
 
-    cout << "mylist contains:";
+    cout << "mylist contains:\n";
     for( it=wynik->begin() ; it != wynik->end(); it++ )
     {
         cout << " " << it->v1;
         cout << " " << it->v2;
     }
 
-    coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp");
+    coder::run("test-files/10-1200x800x24bit.bmp", "skompresowany.abmp");
+    //coder::run("_test.bmp", "_test.abmp");
 
 
     /* ==== TEST DEKODOWANIA LZW ==== */
