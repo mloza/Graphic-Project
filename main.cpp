@@ -82,7 +82,7 @@ int main(int argc, char** argv)
     list<uint2x12_t>::iterator it;
 
     cout << "mylist contains:";
-    for( it=wynik->begin() ; it != wynik->end(); it++ )
+    for( it=wynik->begin(); it != wynik->end(); it++ )
     {
         cout << " " << it->v1;
         cout << " " << it->v2;
@@ -90,15 +90,22 @@ int main(int argc, char** argv)
 
     coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp");
 
-
     /* ==== TEST DEKODOWANIA LZW ==== */
     // jako dane wejściowe używam wyjścia z poprzedniej funkcji
-    cout << "\n\nTEST DEKODOWANIA LZW:\n";
-    decoder::lzw(wynik);
+    /*cout << "\n\nTEST DEKODOWANIA LZW:\n";
+    std::vector<unsigned char>* result = decoder::lzw(wynik);
+
+    vector<unsigned char>::iterator it2;
+    for(it2=result->begin(); it2 != result->end(); it2++)
+    {
+        cout << (int)*it2 << " ";
+    }
+    cout << endl;*/
+    decoder::run("skompresowany.abmp", "result.bmp");
 
     /* ==== ZAPIS Bitmapy ==== */
-    unsigned char data[12] = { 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 255, 0 };
-    saveBMPFile("test.bmp", 2, 2, data);
+    //unsigned char data[12] = { 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 255, 0 };
+    //saveBMPFile("test.bmp", 2, 2, data);
 
     return 0;
 }

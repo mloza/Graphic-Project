@@ -3,8 +3,21 @@
 #include <fstream>
 #include <math.h>
 
-bool loadFile()
+bool loadFile(const char* path, FILEINFO* fileinfo, std::list<uint2x12_t> *data)
 {
+    std::ifstream in(path, std::ios::binary);
+    in.read((char*)fileinfo, sizeof(FILEINFO));
+
+    int size=fileinfo->numberOf12;
+    if(fileinfo->numberOf12%2) size++;
+
+    uint2x12_t* tmp = new uint2x12_t;
+    for(int i = 0; i<size/2; i++)
+    {
+        in.read((char*)tmp, sizeof(uint2x12_t));
+        data->push_back(*tmp);
+    }
+
     return true;
 }
 
@@ -104,7 +117,7 @@ test.close();
     }
 }
 
-bool saveBMPFile(const char* path, int width, int height, unsigned char *imageData)
+bool saveBMPFile(const char* path, int width, int height, std::vector<unsigned char> imageData)
 {
     // Tworzenie nagłóków pliku
     BITMAPFILEHEADER *bfh = new BITMAPFILEHEADER;
@@ -163,3 +176,4 @@ bool saveBMPFile(const char* path, int width, int height, unsigned char *imageDa
     file.close();
     return true;
 }
+

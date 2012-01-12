@@ -5,6 +5,7 @@
 #include "uint2x12_t.h"
 #include <string>
 #include <list>
+#include <vector>
 using namespace std;
 /* ========================================================================= */
 /* ================= CZĘŚĆ DOTYCZĄCA NASZEGO FORMATU ======================= */
@@ -23,8 +24,15 @@ struct FILEINFO {
     uint32_t numberOf12;
 };
 
-
-bool loadFile();
+/**
+ *  @brief Funckja odczytuje plik naszego formatu.
+ *
+ *  @param path Ścieżka do pliku
+ *  @param fileinfo Nagłówek pliku.
+ *  @param data Skompresowane dane obrazu.
+ *
+ */
+bool loadFile(const char* path, FILEINFO* fileinfo, std::list<uint2x12_t> *data);
 
 /**
  *  @brief Funckja tworząca plik naszego formatu.
@@ -96,7 +104,7 @@ unsigned char* loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader)
  *  @param data Wskaźnik pod którym powinny znajdowac się dane obarzu do zapisania
  *
  */
-bool saveBMPFile(const char* path, int width, int height, unsigned char *data);
+bool saveBMPFile(const char* path, int width, int height, std::vector<unsigned char> data);
 
 #endif // FILESFORMATS_H
 
