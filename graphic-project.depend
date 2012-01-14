@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1326558275 source:d:\graphic-project\main.cpp
+1326559239 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	<list>
