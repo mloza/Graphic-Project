@@ -26,17 +26,17 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
 {
     int y,u,v;
     int r,g,b;
-    int idx;
-    for(int h=0; h<fileinfo->height; h++)
+
+    ofstream f("plik.txt");
+    f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
+    f << fileinfo->height*fileinfo->width << "\n";
+    for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
-        for(int w=0; w<fileinfo->width; w++)
-        {
-            // liczymy index pierwszego bajtu, czyli tam gdzie jest Y
-            idx = h*fileinfo->width+w;
+            f << i << "\n";
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
-            y = data[idx];
-            u = data[idx+1];
-            v = data[idx+2];
+            y = data[i];
+            u = data[i+1];
+            v = data[i+2];
             // przeliczamy na RGB
             y-=16;
             u-=128;
@@ -45,10 +45,9 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
             g = clip(0, 255, ((298*y-100*u-208*v+128) >> 8));
             b = clip(0, 255, ((298*y+516*u+128) >> 8));
 
-            data[idx] = r;
-            data[idx+1] = g;
-            data[idx+2] = b;
-        }
+            data[i] = r;
+            data[i+1] = g;
+            data[i+2] = b;
     }
 
     return data;

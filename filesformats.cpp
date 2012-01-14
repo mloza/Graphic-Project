@@ -137,7 +137,7 @@ bool saveBMPFile(const char* path, int width, int height, std::vector<unsigned c
 
     // odwracanie kolorów RGB -> GBR
     unsigned char tempRGB;
-    for(unsigned int imageIdx = 0; imageIdx < bih->biSizeImage; imageIdx += 3)
+    for(unsigned long int imageIdx = 0; imageIdx < bih->biSizeImage; imageIdx += 3)
     {
         tempRGB = imageData[imageIdx];
         imageData[imageIdx] = imageData[imageIdx+2];
