@@ -40,6 +40,7 @@ struct colors {
  *            RGB
  *            HSV
  *            HSL
+ *            YUV
  *  argv[5] = wybrany filtr
  *
  */
