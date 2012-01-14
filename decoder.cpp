@@ -12,6 +12,48 @@ unsigned const int DICTIONARY_MAX_SIZE = 8192;      /** < maksymalna ilość sł
 string dictionary[DICTIONARY_MAX_SIZE];             /** < słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords;                                /** < ilość słów w słowniku */
 
+int clip(int upper, int lower, int val)
+{
+    if(val>upper)
+        return upper;
+    else if(val<lower)
+        return lower;
+    else return val;
+
+}
+
+std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* fileinfo)
+{
+    int y,u,v;
+    int r,g,b;
+    int idx;
+    for(int h=0; h<fileinfo->height; h++)
+    {
+        for(int w=0; w<fileinfo->width; w++)
+        {
+            // liczymy index pierwszego bajtu, czyli tam gdzie jest Y
+            idx = h*fileinfo->width+w;
+            // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
+            y = data[idx];
+            u = data[idx+1];
+            v = data[idx+2];
+            // przeliczamy na RGB
+            y-=16;
+            u-=128;
+            v-=128;
+            r = clip(0, 255, ((298*y+409*v+128) >> 8));
+            g = clip(0, 255, ((298*y-100*u-208*v+128) >> 8));
+            b = clip(0, 255, ((298*y+516*u+128) >> 8));
+
+            data[idx] = r;
+            data[idx+1] = g;
+            data[idx+2] = b;
+        }
+    }
+
+    return data;
+}
+
 bool run(const char* pathIn, const char* pathOut)
 {
     cout << "\n====== URUCHAMIAM DEKODER =====\n";
@@ -24,6 +66,11 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "+++ Plik zaladowany, dekodowanie +++\n";
     cout << "Ilosc 12: " << fileinfo->numberOf12;
     std::vector<unsigned char> rawData = lzw(filedata);
+
+    if(fileinfo->colorSpace == 3)
+    {
+        YUVtoRGB(rawData, fileinfo);
+    }
 
     saveBMPFile("decompressed.bmp", fileinfo->width, fileinfo->height, rawData);
 

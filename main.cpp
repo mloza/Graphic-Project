@@ -45,36 +45,6 @@ struct colors {
  */
 int main(int argc, char** argv)
 {
-    //Zapis
-/*  fstream file("file.bpam", ios::binary|ios::out);
-
-
-    FILEINFO* f = new FILEINFO;
-    f->bpc = 24;
-    f->colors = 4;
-    f->width = 100;
-    f->height = 100;
-
-    file << ':' << ')';
-    file.write((char*)&f, sizeof(fileinfo));
-    file.close();
-
-    //Odczyt informacji
-    file.open("file.bpam", ios::binary|ios::in);
-
-    char signs[2];
-    file >> signs[0] >> signs[1];
-
-    if(signs[0] == ':' && signs[1] == ')')
-    {
-        cout << "Plik typu bpam, odczytano nastepujace liczby:\n" ;
-        f = new fileinfo;
-        file.read((char*)&f, sizeof(fileinfo));
-        cout << f->colors << endl << f->bpc << endl << f->width << endl << f->height;
-    } else {
-        cout << "Nieprawidłowy typ pliku";
-    }*/
-
     /* ==== TEST KODOWANIA LZW  ==== */
     /*unsigned char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
     cout << "\n\nTEST KODOWANIA LZW:\n";
