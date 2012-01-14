@@ -10,6 +10,37 @@ unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość sł
 std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords = 0;                             /**< ilość słów w słowniku */
 
+
+/**
+ *  @return Obraz zapisany w formacie YUV, gdzie każda składowa jest liczą całkowitą z zakresu 0-255.
+ */
+void RGBtoYUV(unsigned char* RGBData, unsigned long int size)
+{
+    unsigned char Y, U, V,
+                  R, G, B;
+
+    ofstream out("YUB Image.txt");
+    for(unsigned long int  i=0; i < size; i+=3)
+    {
+        R = RGBData[i];
+        G = RGBData[i + 1];
+        B = RGBData[i + 2];
+
+        Y = ( (  66 * R + 129 * G +  25 * B + 128) >> 8) +  16;
+        U = ( ( -38 * R -  74 * G + 112 * B + 128) >> 8) + 128;
+        V = ( ( 112 * R -  94 * G -  18 * B + 128) >> 8) + 128;
+
+        out << (int)Y << " " << (int)U << " " << (int)V << endl;
+
+        RGBData[i] = Y;
+        RGBData[i + 1] = U;
+        RGBData[i + 2] = V;
+    }
+    out.close();
+}
+
+
+
 bool coder::run(const char* pathIn, const char* pathOut)
 {
     BITMAPINFOHEADER bmpih;
@@ -28,6 +59,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
 
     // TODO filtry i wybór koloru
 
+    RGBtoYUV(bitmapImageData, bmpih.biSizeImage);
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 
