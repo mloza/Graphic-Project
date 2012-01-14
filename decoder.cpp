@@ -12,7 +12,7 @@ unsigned const int DICTIONARY_MAX_SIZE = 8192;      /** < maksymalna ilość sł
 string dictionary[DICTIONARY_MAX_SIZE];             /** < słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords;                                /** < ilość słów w słowniku */
 
-int clip(int upper, int lower, int val)
+int clip(int lower, int upper, int val)
 {
     if(val>upper)
         return upper;
@@ -32,7 +32,6 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
     f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
-            f << i << "\n";
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
             y = data[i];
             u = data[i+1];
@@ -48,6 +47,8 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i] = r;
             data[i+1] = g;
             data[i+2] = b;
+
+            f << r << " " << g << " " << b << "\n";
     }
 
     return data;
