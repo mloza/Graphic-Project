@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1326557642 source:d:\graphic-project\main.cpp
+1326558275 source:d:\graphic-project\main.cpp
 	<iostream>
 	<fstream>
 	<list>
@@ -82,7 +82,7 @@
 	<list>
 	<vector>
 
-1326390295 source:d:\graphic-project\filesformats.cpp
+1326558492 source:d:\graphic-project\filesformats.cpp
 	"filesformats.h"
 	<iostream>
 	<fstream>
