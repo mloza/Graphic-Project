@@ -67,10 +67,10 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Ilosc 12: " << fileinfo->numberOf12;
     std::vector<unsigned char> rawData = lzw(filedata);
 
-    if(fileinfo->colorSpace == 3)
-    {
-        YUVtoRGB(rawData, fileinfo);
-    }
+    //if(fileinfo->colorSpace == 3)
+    //{
+        rawData = YUVtoRGB(rawData, fileinfo);
+    //}
 
     saveBMPFile("decompressed.bmp", fileinfo->width, fileinfo->height, rawData);
 
