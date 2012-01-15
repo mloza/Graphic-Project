@@ -4,6 +4,7 @@
 #include <vector>
 #include "filesformats.h"
 
+#include <math.h>
 using namespace std;
 
 namespace decoder
@@ -27,9 +28,9 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
     int y,u,v;
     int r,g,b;
 
-    ofstream f("plik.txt");
-    f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
-    f << fileinfo->height*fileinfo->width << "\n";
+    //ofstream f("plik.txt");
+    //f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
+    //f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
@@ -48,7 +49,132 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i+1] = g;
             data[i+2] = b;
 
-            f << r << " " << g << " " << b << "\n";
+            //f << r << " " << g << " " << b << "\n";
+    }
+
+    return data;
+}
+
+std::vector<unsigned char> HSLtoRGB(std::vector<unsigned char> data, FILEINFO* fileinfo)
+{
+    double h,s,l, hp, c, x, m, hp2;
+    double r,g,b;
+    int tmp;
+
+    ofstream f("plik.txt");
+    f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
+    f << fileinfo->height*fileinfo->width << "\n";
+    for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
+    {
+            // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
+            h = data[i];
+            s = data[i+1];
+            l = data[i+2];
+            // skalowanie h: 0-360, s i l 0-1
+            h = h*360./255.;
+            s = s/255.;
+            l = l/255.;
+
+            // chroma
+            c = (1-fabs(2.*l-1.))*s;
+            // liczymy h'
+            hp2 = hp = h/60;
+
+            //mod dla double
+            tmp = hp;
+            hp2 -= tmp;
+            tmp = tmp%2;
+            hp2 += tmp;
+
+            x = c*(1-fabs(hp2-1));
+
+            if(hp>=5)
+                { r = c; g = 0; b = x; }
+            else if(hp>=4)
+                { r = x; g = 0; b =c; }
+            else if(hp>=3)
+                { r = 0; g = x; b = c; }
+            else if(hp>=2)
+                { r = 0; g = c; b = x; }
+            else if(hp>=1)
+                { r = x; g = c; b = 0; }
+            else if(hp>=0)
+                { r = c; g = x; b = 0; }
+
+            m = l-c/2;
+            r+=m;
+            g+=m;
+            b+=m;
+
+            data[i] = r*255;
+            data[i+1] = g*255;
+            data[i+2] = b*255;
+
+            f << hp << " " << c << " " << x << " " << m << "\n";
+            f << h << " " << s << " " << l << "\n";
+            f << r << " " << g << " " << b << "\n\n";
+    }
+
+    return data;
+}
+
+std::vector<unsigned char> HSVtoRGB(std::vector<unsigned char> data, FILEINFO* fileinfo)
+{
+    double h,s,v, hp, c, x, m, hp2;
+    double r,g,b;
+    int tmp;
+
+    ofstream f("plik.txt");
+    f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
+    f << fileinfo->height*fileinfo->width << "\n";
+    for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
+    {
+            // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
+            h = data[i];
+            s = data[i+1];
+            v = data[i+2];
+
+            h = h*360./255.;
+            s = s/255.;
+            v = v/255.;
+
+            // chroma
+            c = v*s;
+            // liczymy h'
+            hp2 = hp = h/60;
+
+            tmp = hp;
+            hp2 -= tmp;
+            tmp = tmp%2;
+            hp2 += tmp;
+
+            x = c*(1-fabs(hp2-1));
+
+            if(hp>=5)
+                { r = c; g = 0; b = x; }
+            else if(hp>=4)
+                { r = x; g = 0; b =c; }
+            else if(hp>=3)
+                { r = 0; g = x; b = c; }
+            else if(hp>=2)
+                { r = 0; g = c; b = x; }
+            else if(hp>=1)
+                { r = x; g = c; b = 0; }
+            else if(hp>=0)
+                { r = c; g = x; b = 0; }
+
+            m = v-c;
+            r+=m;
+            g+=m;
+            b+=m;
+
+            data[i] = r*255;
+            data[i+1] = g*255;
+            data[i+2] = b*255;
+
+            f << hp << " " << c << " " << x << " " << m << "\n";
+            f << h << " " << s << " " << v << "\n";
+            f << r << " " << g << " " << b << "\n\n";
     }
 
     return data;
@@ -69,7 +195,7 @@ bool run(const char* pathIn, const char* pathOut)
 
     //if(fileinfo->colorSpace == 3)
     //{
-        rawData = YUVtoRGB(rawData, fileinfo);
+        rawData = HSLtoRGB(rawData, fileinfo);
     //}
 
     saveBMPFile("decompressed.bmp", fileinfo->width, fileinfo->height, rawData);
