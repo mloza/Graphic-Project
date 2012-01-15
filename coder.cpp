@@ -2,7 +2,7 @@
 #include "filesformats.h"
 #include <iostream>
 #include <fstream>
-#include <sstream>
+#include <math.h>
 
 using namespace std;
 
@@ -12,7 +12,90 @@ unsigned int nWords = 0;                             /**< ilość słów w słow
 
 
 /**
- *  @return Obraz zapisany w formacie YUV, gdzie każda składowa jest liczą całkowitą z zakresu 0-255.
+ *  Konwertuje obraz zapisany w formacie HSL, gdzie każda składowa jest liczbą całkowitą z zakresu 0-255.
+ *  Normalnie zakres H wynosi 0 - 360 stopni, tutaj skalowany tak, aby zmieścić się w 0-255
+ */
+float maxRGB(float R, float G, float B)
+{
+    if(R >= G && R >= B) return R;
+    if(G >= R && G >= B) return G;
+    if(B >= R && B >= G) return B;
+}
+float minRGB(float R, float G, float B)
+{
+    if(R <= G && R <= B) return R;
+    if(G <= R && G <= B) return G;
+    if(B <= R && B <= G) return B;
+}
+void RGBtoHSL(unsigned char* RGBData, unsigned long int size)
+{
+    float H, S, L,  R, G, B, M, m, C;
+    int integerPart; float decimalPart;
+ofstream out("HSL Image.txt");
+    for(unsigned long int  i=0; i < size; i+=3)
+    {
+        // Przeskaluj przed wykoaniem algorytmu RGB do przedziału [0,1]
+        R = (float)RGBData[i]/255.0;
+        G = (float)RGBData[i + 1]/255.0;
+        B = (float)RGBData[i + 2]/255.0;
+
+        M = maxRGB(R, G, B);
+        m = minRGB(R, G, B);
+        C = M - m;
+
+        out << "RGB(" << (int)(R*255.0) << ", " << (int)(G*255.0) << ", " << (int)(B*255.0) << ") = ";
+
+        // Oblicz Hue
+        if(C == 0)
+        {
+            H = 0;
+        }
+        else
+        {
+            if(M == R)
+            {
+                integerPart = (G - B)/C;
+                decimalPart = integerPart - (float)(G - B)/C;
+                integerPart = integerPart % 6;
+                decimalPart += integerPart;
+                H = 60.0 * (decimalPart);
+                // H = 60.0 * ((int)((G - B)/C) % 6);
+            }else
+            if(M == G)
+            {
+                H = 60.0 *  ((float)(B - R)/C + 2);
+            }else
+            if(M == B)
+            {
+                H = 60.0 *  ((float)(R - G)/C + 4);
+            }
+        }
+
+        // Oblicz Lightness
+        L = (float)(M + m)/2.0;
+
+        // Oblicz Saturation
+        if(C == 0)
+        {
+            S = 0;
+        }
+        else
+        {
+            S = (float)C/(float)(1 - fabs(2*L - 1));
+        }
+
+        RGBData[i] = H;
+        RGBData[i + 1] = S;
+        RGBData[i + 2] = L;
+
+        out << " HSL(" << H << ", " << S << ", " << L << ")" << endl;
+    }
+    out.close();
+}
+
+
+/**
+ *  Konwertuje obraz zapisany w formacie YUV, gdzie każda składowa jest liczbą całkowitą z zakresu 0-255.
  */
 void RGBtoYUV(unsigned char* RGBData, unsigned long int size)
 {
@@ -59,7 +142,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
 
     // TODO filtry i wybór koloru
 
-    RGBtoYUV(bitmapImageData, bmpih.biSizeImage);
+    RGBtoHSL(bitmapImageData, bmpih.biSizeImage);
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 
@@ -145,16 +228,6 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
             {
                 dictionary[nWords] = word + (char)data[actualIdx]; // dodaj słowo z aktualnym znakiem do słownika
                 nWords++;
-            }
-            else
-            {
-                static bool wypisano = false;
-                if(!wypisano)
-                {
-                    cout << "Slownik sie zapelnil przy " << actualIdx << " bajcie danych wejsciowych [rozmiar danych we = " << dataSize << "]\n";
-                    wypisano = true;
-                }
-
             }
 
             word=""; // Wyzeruj słowo, poniżej dodawany jest do niego aktualny znak
