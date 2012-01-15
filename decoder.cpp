@@ -61,9 +61,9 @@ std::vector<unsigned char> HSLtoRGB(std::vector<unsigned char> data, FILEINFO* f
     double r,g,b;
     int tmp;
 
-    ofstream f("plik.txt");
-    f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
-    f << fileinfo->height*fileinfo->width << "\n";
+    //ofstream f("plik.txt");
+    //f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
+    //f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
@@ -110,9 +110,9 @@ std::vector<unsigned char> HSLtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i+1] = g*255;
             data[i+2] = b*255;
 
-            f << hp << " " << c << " " << x << " " << m << "\n";
-            f << h << " " << s << " " << l << "\n";
-            f << r << " " << g << " " << b << "\n\n";
+            //f << hp << " " << c << " " << x << " " << m << "\n";
+            //f << h << " " << s << " " << l << "\n";
+            //f << r << " " << g << " " << b << "\n\n";
     }
 
     return data;
@@ -124,9 +124,9 @@ std::vector<unsigned char> HSVtoRGB(std::vector<unsigned char> data, FILEINFO* f
     double r,g,b;
     int tmp;
 
-    ofstream f("plik.txt");
-    f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
-    f << fileinfo->height*fileinfo->width << "\n";
+    //ofstream f("plik.txt");
+    //f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
+    //f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
@@ -172,9 +172,9 @@ std::vector<unsigned char> HSVtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i+1] = g*255;
             data[i+2] = b*255;
 
-            f << hp << " " << c << " " << x << " " << m << "\n";
-            f << h << " " << s << " " << v << "\n";
-            f << r << " " << g << " " << b << "\n\n";
+            //f << hp << " " << c << " " << x << " " << m << "\n";
+            //f << h << " " << s << " " << v << "\n";
+            //f << r << " " << g << " " << b << "\n\n";
     }
 
     return data;
