@@ -46,12 +46,12 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    if(strcmp(argv[1], "CODER") < 0)
+    if(strcmp(argv[1], "CODER") == 0)
     {
         coder::run(argv[2], argv[3], argv[4], argv[5]);
     }
     else
-    if(strcmp(argv[1], "DECODER") < 0)
+    if(strcmp(argv[1], "DECODER") == 0)
     {
         decoder::run(argv[2], argv[3]);
     }
