@@ -31,6 +31,7 @@ void RGBtoHSL(unsigned char* RGBData, unsigned long int size)
 {
     float H, S, L,  R, G, B, M, m, C,    alpha, beta;
     int integerPart; float decimalPart;
+    float var_Min, var_Max, del_Max, del_R, del_G, del_B;
 ofstream out("HSL Image.txt");
     for(unsigned long int  i=0; i < size; i+=3)
     {
@@ -45,12 +46,12 @@ ofstream out("HSL Image.txt");
 
         out << "RGB(" << (int)(R*255.0) << ", " << (int)(G*255.0) << ", " << (int)(B*255.0) << ") = ";
 
-        //alpha = (2.0*R - G - B)/2.0;
-        //beta = sqrt(3)*(G - B)/2.0;
+        alpha = (2.0*R - G - B)/2.0;
+        beta = sqrt(3)*(G - B)/2.0;
 
-        //H = 60.0 * atan2(beta, alpha);
-        //C = sqrt(alpha*alpha + beta*beta);
-
+        H = 60.0 * atan2(beta, alpha);
+        C = sqrt(alpha*alpha + beta*beta);
+/*
         // Oblicz Hue
         if(C == 0)
         {
@@ -66,17 +67,20 @@ ofstream out("HSL Image.txt");
                 //decimalPart += integerPart;
                 //H = 60.0 * (decimalPart);
                 H = 60.0 * ((int)((G - B)/C) % 6);
+                out << " (M==R) ";
             }else
             if(M == G)
             {
                 H = 60.0 *  ((float)(B - R)/C + 2);
+                out << " (M==G) ";
             }else
             if(M == B)
             {
                 H = 60.0 *  ((float)(R - G)/C + 4);
+                out << " (M==B) ";
             }
         }
-
+*/
         // Oblicz Lightness
         L = (float)(M + m)/2.0;
 
@@ -90,7 +94,43 @@ ofstream out("HSL Image.txt");
             S = (float)C/(float)(1 - fabs(2*L - 1));
         }
 
-        RGBData[i] = H;
+/*
+var_Min = minRGB( R, G, B );    //Min. value of RGB
+var_Max = maxRGB( R, G, B);     //Max. value of RGB
+del_Max = var_Max - var_Min;             //Delta RGB value
+
+L = ( var_Max + var_Min ) / 2.0;
+
+if ( del_Max == 0 )                     //This is a gray, no chroma...
+{
+   H = 0;                                //HSL results from 0 to 1
+   S = 0;
+}
+else                                    //Chromatic data...
+{
+   if( L < 0.5 )
+       S = del_Max / ( var_Max + var_Min );
+   else
+       S = del_Max / ( 2.0 - var_Max - var_Min );
+
+   del_R = ( ( ( var_Max - R ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
+   del_G = ( ( ( var_Max - G ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
+   del_B = ( ( ( var_Max - B ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
+
+   if( R == var_Max )
+       H = del_B - del_G;
+   else
+   if( G == var_Max )
+       H = ( 1.0 / 3.0 ) + del_R - del_B;
+   else
+   if( B == var_Max )
+       H = ( 2.0 / 3.0 ) + del_G - del_R;
+
+   if ( H < 0 ) H += 1;
+   if ( H > 1 ) H -= 1;
+}
+*/
+        RGBData[i] = H/360.0 * 255.0;
         RGBData[i + 1] = S * 255; // Przeskaluj [0,1] -> [0, 255]
         RGBData[i + 2] = L * 255; // Przeskaluj [0,1] -> [0, 255]
 
