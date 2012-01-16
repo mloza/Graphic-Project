@@ -29,7 +29,7 @@ float minRGB(float R, float G, float B)
 }
 void RGBtoHSL(unsigned char* RGBData, unsigned long int size)
 {
-    float H, S, L,  R, G, B, M, m, C;
+    float H, S, L,  R, G, B, M, m, C,    alpha, beta;
     int integerPart; float decimalPart;
 ofstream out("HSL Image.txt");
     for(unsigned long int  i=0; i < size; i+=3)
@@ -45,6 +45,12 @@ ofstream out("HSL Image.txt");
 
         out << "RGB(" << (int)(R*255.0) << ", " << (int)(G*255.0) << ", " << (int)(B*255.0) << ") = ";
 
+        //alpha = (2.0*R - G - B)/2.0;
+        //beta = sqrt(3)*(G - B)/2.0;
+
+        //H = 60.0 * atan2(beta, alpha);
+        //C = sqrt(alpha*alpha + beta*beta);
+
         // Oblicz Hue
         if(C == 0)
         {
@@ -54,12 +60,12 @@ ofstream out("HSL Image.txt");
         {
             if(M == R)
             {
-                integerPart = (G - B)/C;
-                decimalPart = integerPart - (float)(G - B)/C;
-                integerPart = integerPart % 6;
-                decimalPart += integerPart;
-                H = 60.0 * (decimalPart);
-                // H = 60.0 * ((int)((G - B)/C) % 6);
+                //integerPart = (G - B)/C;
+                //decimalPart = integerPart - (float)(G - B)/C;
+                //integerPart = integerPart % 6;
+                //decimalPart += integerPart;
+                //H = 60.0 * (decimalPart);
+                H = 60.0 * ((int)((G - B)/C) % 6);
             }else
             if(M == G)
             {
@@ -85,8 +91,8 @@ ofstream out("HSL Image.txt");
         }
 
         RGBData[i] = H;
-        RGBData[i + 1] = S;
-        RGBData[i + 2] = L;
+        RGBData[i + 1] = S * 255; // Przeskaluj [0,1] -> [0, 255]
+        RGBData[i + 2] = L * 255; // Przeskaluj [0,1] -> [0, 255]
 
         out << " HSL(" << H << ", " << S << ", " << L << ")" << endl;
     }

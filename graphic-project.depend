@@ -27,12 +27,13 @@
 	"filesformats.h"
 	<math.h>
 
-1326559568 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.cpp
+1326668385 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.cpp
 	<iostream>
 	<fstream>
 	"decoder.h"
 	<vector>
 	"filesformats.h"
+	<math.h>
 
 1326385113 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.h
 	<inttypes.h>

@@ -10,8 +10,8 @@ void differential_filter(unsigned char *data, int width, int height)
 // filtr w górę,  nowa wartość koloru to różnica obecnej komórki i komórki powyżej ( data[j] = data[j] - data[j-width])
 void up_filter(unsigned char *data, int width, int height)
 {
-    for(int j=width; j< width*height*3; j++)
+    for(int j=3*width; j< width*height*3; j++)
     {
-                data[j] = data[j] - data[j-width];
+                data[j] = data[j] - data[j-3*width];
     }
 }
