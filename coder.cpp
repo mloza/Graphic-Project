@@ -10,11 +10,6 @@ unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość sł
 std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords = 0;                             /**< ilość słów w słowniku */
 
-
-/**
- *  Konwertuje obraz zapisany w formacie HSL, gdzie każda składowa jest liczbą całkowitą z zakresu 0-255.
- *  Normalnie zakres H wynosi 0 - 360 stopni, tutaj skalowany tak, aby zmieścić się w 0-255
- */
 float maxRGB(float R, float G, float B)
 {
     if(R >= G && R >= B) return R;
@@ -27,11 +22,67 @@ float minRGB(float R, float G, float B)
     if(G <= R && G <= B) return G;
     if(B <= R && B <= G) return B;
 }
+/**
+ *  Konwertuje obraz zapisany w formacie HSV, gdzie każda składowa jest liczbą całkowitą z zakresu 0-255.
+ *  Normalnie zakres H wynosi 0 - 360 stopni, tutaj skalowany tak, aby zmieścić się w 0-255
+ */
+void RGBtoHSV(unsigned char* RGBData, unsigned long int size)
+{
+    float H, S, V, R, G, B,
+          M, m, C, alpha, beta;
+ofstream out("HSV Image.txt");
+    for(unsigned long int  i=0; i < size; i+=3)
+    {
+        // Przeskaluj przed wykoaniem algorytmu RGB do przedziału [0,1]
+        R = (float)RGBData[i]/255.0;
+        G = (float)RGBData[i + 1]/255.0;
+        B = (float)RGBData[i + 2]/255.0;
+
+        M = maxRGB(R, G, B);
+        m = minRGB(R, G, B);
+        C = M - m;
+
+        out << "RGB(" << (int)(R*255.0) << ", " << (int)(G*255.0) << ", " << (int)(B*255.0) << ") = ";
+
+        alpha = (2.0*R - G - B)/2.0;
+        beta = sqrt(3)*(G - B)/2.0;
+        C = sqrt(alpha*alpha + beta*beta);
+
+        // Oblicz Hue
+        H = 60.0 * atan2(beta, alpha);
+        if(H < 0.0)
+            H += 360.0;
+
+        // Oblicz Value
+        V = M;
+
+        // Oblicz Saturation
+        if(C == 0)
+        {
+            S = 0;
+        }
+        else
+        {
+            S = C/V;
+        }
+
+        RGBData[i] = H/360.0 * 255.0;
+        RGBData[i + 1] = S * 255; // Przeskaluj [0,1] -> [0, 255]
+        RGBData[i + 2] = V * 255; // Przeskaluj [0,1] -> [0, 255]
+
+        out << " HSV(" << H << ", " << S << ", " << V << ")" << endl;
+    }
+    out.close();
+}
+
+/**
+ *  Konwertuje obraz zapisany w formacie HSL, gdzie każda składowa jest liczbą całkowitą z zakresu 0-255.
+ *  Normalnie zakres H wynosi 0 - 360 stopni, tutaj skalowany tak, aby zmieścić się w 0-255
+ */
 void RGBtoHSL(unsigned char* RGBData, unsigned long int size)
 {
-    float H, S, L,  R, G, B, M, m, C,    alpha, beta;
-    int integerPart; float decimalPart;
-    float var_Min, var_Max, del_Max, del_R, del_G, del_B;
+    float H, S, L, R, G, B,
+          M, m, C, alpha, beta;
 ofstream out("HSL Image.txt");
     for(unsigned long int  i=0; i < size; i+=3)
     {
@@ -48,39 +99,13 @@ ofstream out("HSL Image.txt");
 
         alpha = (2.0*R - G - B)/2.0;
         beta = sqrt(3)*(G - B)/2.0;
-
-        H = 60.0 * atan2(beta, alpha);
         C = sqrt(alpha*alpha + beta*beta);
-/*
+
         // Oblicz Hue
-        if(C == 0)
-        {
-            H = 0;
-        }
-        else
-        {
-            if(M == R)
-            {
-                //integerPart = (G - B)/C;
-                //decimalPart = integerPart - (float)(G - B)/C;
-                //integerPart = integerPart % 6;
-                //decimalPart += integerPart;
-                //H = 60.0 * (decimalPart);
-                H = 60.0 * ((int)((G - B)/C) % 6);
-                out << " (M==R) ";
-            }else
-            if(M == G)
-            {
-                H = 60.0 *  ((float)(B - R)/C + 2);
-                out << " (M==G) ";
-            }else
-            if(M == B)
-            {
-                H = 60.0 *  ((float)(R - G)/C + 4);
-                out << " (M==B) ";
-            }
-        }
-*/
+        H = 60.0 * atan2(beta, alpha);
+        if(H < 0.0)
+            H += 360.0;
+
         // Oblicz Lightness
         L = (float)(M + m)/2.0;
 
@@ -94,42 +119,6 @@ ofstream out("HSL Image.txt");
             S = (float)C/(float)(1 - fabs(2*L - 1));
         }
 
-/*
-var_Min = minRGB( R, G, B );    //Min. value of RGB
-var_Max = maxRGB( R, G, B);     //Max. value of RGB
-del_Max = var_Max - var_Min;             //Delta RGB value
-
-L = ( var_Max + var_Min ) / 2.0;
-
-if ( del_Max == 0 )                     //This is a gray, no chroma...
-{
-   H = 0;                                //HSL results from 0 to 1
-   S = 0;
-}
-else                                    //Chromatic data...
-{
-   if( L < 0.5 )
-       S = del_Max / ( var_Max + var_Min );
-   else
-       S = del_Max / ( 2.0 - var_Max - var_Min );
-
-   del_R = ( ( ( var_Max - R ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
-   del_G = ( ( ( var_Max - G ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
-   del_B = ( ( ( var_Max - B ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
-
-   if( R == var_Max )
-       H = del_B - del_G;
-   else
-   if( G == var_Max )
-       H = ( 1.0 / 3.0 ) + del_R - del_B;
-   else
-   if( B == var_Max )
-       H = ( 2.0 / 3.0 ) + del_G - del_R;
-
-   if ( H < 0 ) H += 1;
-   if ( H > 1 ) H -= 1;
-}
-*/
         RGBData[i] = H/360.0 * 255.0;
         RGBData[i + 1] = S * 255; // Przeskaluj [0,1] -> [0, 255]
         RGBData[i + 2] = L * 255; // Przeskaluj [0,1] -> [0, 255]
@@ -170,7 +159,7 @@ void RGBtoYUV(unsigned char* RGBData, unsigned long int size)
 
 
 
-bool coder::run(const char* pathIn, const char* pathOut)
+bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace, const char* filter)
 {
     BITMAPINFOHEADER bmpih;
     unsigned char* bitmapImageData = 0;
@@ -178,17 +167,35 @@ bool coder::run(const char* pathIn, const char* pathOut)
     std::list<uint2x12_t> *compressedImage;
     unsigned int numberOf12 = 0;
 
-    std::cout << "URUCHOMIONO KODER\nRozpoczynam konwersje pliku BMP do formatu ABMP (RGB, bez filtra)" << endl;
+    cout << "URUCHOMIONO KODER" << endl;
+    cout << "Plik wejsciowy: " << pathIn << endl;
+    cout << "Plik wyjsciowy: " << pathOut << endl;
+    cout << "    Przestrzen barw: " << colorSpace << endl;
+    cout << "    Filtr: " << filter << endl;
+
     bitmapImageData = loadBMPFile(pathIn, &bmpih);
     if(!bitmapImageData)
-    {
-        cout << "Nie udalo wczytac sie pliku BMP " << pathIn << endl;
         return false;
+
+    // TODO filtry
+
+    switch(getColorSpaceID(colorSpace))
+    {
+        case RGB:
+                  break;
+
+        case HSL: RGBtoHSL(bitmapImageData, bmpih.biSizeImage);
+                  break;
+
+        case HSV: RGBtoHSV(bitmapImageData, bmpih.biSizeImage);
+                  break;
+
+        case YUV: RGBtoYUV(bitmapImageData, bmpih.biSizeImage);
+                  break;
+        default:
+                 cout << "Otrzymano nieobslugiwana przestrzen barw!\n";
+                 return false;
     }
-
-    // TODO filtry i wybór koloru
-
-    RGBtoHSL(bitmapImageData, bmpih.biSizeImage);
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 
@@ -201,7 +208,7 @@ bool coder::run(const char* pathIn, const char* pathOut)
     }*/
 
     fileinfo.fileType = ':)';
-    fileinfo.colorSpace = 0; // TODO :ZMIENIĆ
+    fileinfo.colorSpace = getColorSpaceID(colorSpace);
     fileinfo.bpp = 24;
     fileinfo.width = bmpih.biWidth;
     fileinfo.height = bmpih.biHeight;
@@ -209,6 +216,9 @@ bool coder::run(const char* pathIn, const char* pathOut)
 
     if(!saveFile(pathOut, &fileinfo, compressedImage))
         return false;
+
+    cout << "\nOperacja kodowania do formatu .abmp wykonana pomyślnie.\n";
+    return true;
 }
 
 /**
@@ -300,7 +310,6 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
         compressedData->push_back(tmp);
     }
 
-    cout << "Dane skompresowane to "<< compressedData->size() *sizeof(uint2x12_t) << " B\n";
     *numberOf12_in = numberOf12;
     return compressedData;
 };

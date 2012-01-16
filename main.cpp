@@ -1,10 +1,12 @@
 #include <iostream>
+#include <cstring>
 #include <fstream>
 #include <list>
 
 // Pliki wspólne
 #include "uint2x12_t.h"
 #include "filesformats.h"
+#include "options.h"
 
 // Pliki do kodera
 #include "coder.h"
@@ -13,16 +15,6 @@
 #include "decoder.h"
 
 using namespace std;
-
-struct colors {
-    void RGBToYUV() {}
-    void RGBToHSV() {}
-    void RGBToHSL() {}
-
-    void YUVToRGB() {}
-    void HSVToRGB() {}
-    void HSLToRGB() {}
-};
 
 /**
  *  @brief Główna funkcja programu.
@@ -46,38 +38,27 @@ struct colors {
  */
 int main(int argc, char** argv)
 {
-    /* ==== TEST KODOWANIA LZW  ==== */
-    /*unsigned char tablica[36]={0,0,0,1,1,1,1,2,0,0,3,1,3,2,2,0,0,0,3,3,3,3,1,2,1,2,3,1,2,0,0,1,1,1,3,3};
-    cout << "\n\nTEST KODOWANIA LZW:\n";
-    std::list<uint2x12_t> *wynik = coder::lzw(tablica, 36);
-    list<uint2x12_t>::iterator it;
-
-    cout << "mylist contains:";
-    for( it=wynik->begin(); it != wynik->end(); it++ )
+    if(argc < 4)
     {
-        cout << " " << it->v1;
-        cout << " " << it->v2;
-    }*/
+        // TODO: Zrobic tutaj opis..
+        cout << "Sposob uzycia:\n";
 
-    coder::run("test-files/10-300x200x24bit.bmp", "skompresowany.abmp");
-    //coder::run("_test.bmp", "_test.abmp");
-
-    /* ==== TEST DEKODOWANIA LZW ==== */
-    // jako dane wejściowe używam wyjścia z poprzedniej funkcji
-    /*cout << "\n\nTEST DEKODOWANIA LZW:\n";
-    std::vector<unsigned char>* result = decoder::lzw(wynik);
-
-    vector<unsigned char>::iterator it2;
-    for(it2=result->begin(); it2 != result->end(); it2++)
-    {
-        cout << (int)*it2 << " ";
+        return -1;
     }
-    cout << endl;*/
-    decoder::run("skompresowany.abmp", "result.bmp");
 
-    /* ==== ZAPIS Bitmapy ==== */
-    //unsigned char data[12] = { 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 255, 0 };
-    //saveBMPFile("test.bmp", 2, 2, data);
+    if(strcmp(argv[1], "CODER") < 0)
+    {
+        coder::run(argv[2], argv[3], argv[4], argv[5]);
+    }
+    else
+    if(strcmp(argv[1], "DECODER") < 0)
+    {
+        decoder::run(argv[2], argv[3]);
+    }
+
+    //coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp", "HSL", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
+
+    //decoder::run("skompresowany.abmp", "result.bmp"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 
     return 0;
 }

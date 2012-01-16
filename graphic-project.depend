@@ -27,7 +27,7 @@
 	"filesformats.h"
 	<math.h>
 
-1326668385 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.cpp
+1326741342 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/decoder.cpp
 	<iostream>
 	<fstream>
 	"decoder.h"
@@ -42,30 +42,33 @@
 	<vector>
 	"uint2x12_t.h"
 
-1326674530 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.cpp
+1326747034 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.cpp
 	"coder.h"
 	"filesformats.h"
 	<iostream>
 	<fstream>
 	<math.h>
 
-1326386794 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.h
+1326745882 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/coder.h
 	<string>
 	<list>
 	<inttypes.h>
 	"uint2x12_t.h"
+	"options.h"
 
 1325807246 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/fileformat.cpp
 	"fileformat.h"
 
 1325807247 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/fileformat.h
 
-1326674206 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/main.cpp
+1326747257 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/main.cpp
 	<iostream>
+	<cstring>
 	<fstream>
 	<list>
 	"uint2x12_t.h"
 	"filesformats.h"
+	"options.h"
 	"coder.h"
 	"decoder.h"
 
@@ -139,4 +142,10 @@
 1325873509 /home/bartek/projekt_grafika/fileformat.h
 
 1326672000 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/filters.cpp
+
+1326745429 /media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/options.h
+	<string>
+
+1326745410 source:/media/Dane/Moje dane/Studia/III semestr/Grafika komputerowa i Multimedia/Projekt/Graphic-Project/options.cpp
+	"options.h"
 

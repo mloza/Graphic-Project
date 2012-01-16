@@ -5,6 +5,7 @@
 #include <list>
 #include <inttypes.h>
 #include "uint2x12_t.h"
+#include "options.h"
 
 using namespace std;
 namespace coder {
@@ -12,9 +13,11 @@ namespace coder {
      *  @brief Funkcja uruchamiająca koder realizujący wczytanie pliku BMP i zapisanie obrazu w naszym formacie.
      *  @param pathIn Ścieżka do pliku wejściowego BMP.
      *  @param pathOut Ścieżka gdzie zapisuje plik ABMP.
+     *  @param colorSpace W jakiej przestrzeni zapisujemy obraz.
+     *  @param filter Filtr który przetwarza dane przed kompresją.
      *  @return True jeśli wszystko przebiegło pomyślnie.
      */
-    bool run(const char* pathIn, const char* pathOut);
+    bool run(const char* pathIn, const char* pathOut, const char* colorSpace, const char* filter);
 
     /**
      *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
