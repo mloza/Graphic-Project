@@ -49,6 +49,8 @@
 		<Unit filename="filters.cpp" />
 		<Unit filename="filters.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="options.cpp" />
+		<Unit filename="options.h" />
 		<Unit filename="uint2x12_t.h" />
 		<Extensions>
 			<code_completion />

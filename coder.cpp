@@ -199,14 +199,6 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 
-    /*cout << "compressedImage contains:";
-    list<uint2x12_t>::iterator it;
-    for( it=compressedImage->begin() ; it != compressedImage->end(); it++ )
-    {
-        cout << " " << it->v1;
-        cout << " " << it->v2;
-    }*/
-
     fileinfo.fileType = ':)';
     fileinfo.colorSpace = getColorSpaceID(colorSpace);
     fileinfo.bpp = 24;
@@ -252,6 +244,7 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
     unsigned int numberOf12 = 0; // Ilość zapisanych dwunastobitowych indeksów
     std::list<uint2x12_t> *compressedData = new std::list<uint2x12_t>;
     unsigned long int actualIdx = 0; // Index aktualnie pobieranego bajtu danych wejściowych
+    int percentComplete, oldPercentComplete = 0;
     string word = "";
 
     for(int i=0; i< 256; i++)
@@ -293,6 +286,10 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
         word += data[actualIdx];
 
         actualIdx++;
+        percentComplete = (int)((float)actualIdx/(float)dataSize * 100);
+        if(percentComplete != oldPercentComplete)
+            cout << "Trwa kompresowanie obrazu... [" << percentComplete << "%]" << endl;
+        oldPercentComplete = percentComplete;
     }
 
     // Wypisz indeks tego co zostało
