@@ -2,16 +2,21 @@
 // Pierwszy bajt jest pomijany
 void differential_filter(unsigned char *data, int width, int height)
 {
-        for(int j=1; j< width*height*3; j++)
-            data[j] -= data[j-1];
-
+    for(int j=1; j< width*height*3; j++)
+    {
+        data[j] -= data[j-1];
+        if(data[j] < 0)
+            data[j] += 255; // jeśli wartość koloru wyjdzie minusowa to aby otrzymać dodatnią zwiększamy ją o 255
+    }
 }
 
-// filtr w górę,  nowa wartość koloru to różnica obecnej komórki i komórki powyżej ( data[j] = data[j] - data[j-width])
+// filtr w górę,  nowa wartość koloru to różnica obecnej komórki i komórki powyżej ( data[j] = data[j] - data[j-3*width] )
 void up_filter(unsigned char *data, int width, int height)
 {
     for(int j=3*width; j< width*height*3; j++)
     {
-                data[j] = data[j] - data[j-3*width];
+        data[j] = data[j] - data[j-3*width];
+        if(data[j] < 0)
+            data[j] += 255; // jeśli wartość koloru wyjdzie minusowa to aby otrzymać dodatnią zwiększamy ją o 255
     }
 }
