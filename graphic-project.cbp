@@ -38,12 +38,8 @@
 		</Compiler>
 		<Unit filename="coder.cpp" />
 		<Unit filename="coder.h" />
-		<Unit filename="decoder.cpp">
-			<Option target="Debug" />
-		</Unit>
-		<Unit filename="decoder.h">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="decoder.cpp" />
+		<Unit filename="decoder.h" />
 		<Unit filename="filesformats.cpp" />
 		<Unit filename="filesformats.h" />
 		<Unit filename="filters.cpp" />

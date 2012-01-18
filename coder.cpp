@@ -30,7 +30,7 @@ void RGBtoHSV(unsigned char* RGBData, unsigned long int size)
 {
     float H, S, V, R, G, B,
           M, m, C, alpha, beta;
-ofstream out("HSV Image.txt");
+
     for(unsigned long int  i=0; i < size; i+=3)
     {
         // Przeskaluj przed wykoaniem algorytmu RGB do przedziału [0,1]
@@ -41,8 +41,6 @@ ofstream out("HSV Image.txt");
         M = maxRGB(R, G, B);
         m = minRGB(R, G, B);
         C = M - m;
-
-        out << "RGB(" << (int)(R*255.0) << ", " << (int)(G*255.0) << ", " << (int)(B*255.0) << ") = ";
 
         alpha = (2.0*R - G - B)/2.0;
         beta = sqrt(3)*(G - B)/2.0;
@@ -69,10 +67,7 @@ ofstream out("HSV Image.txt");
         RGBData[i] = H/360.0 * 255.0;
         RGBData[i + 1] = S * 255; // Przeskaluj [0,1] -> [0, 255]
         RGBData[i + 2] = V * 255; // Przeskaluj [0,1] -> [0, 255]
-
-        out << " HSV(" << H << ", " << S << ", " << V << ")" << endl;
     }
-    out.close();
 }
 
 /**
@@ -83,7 +78,7 @@ void RGBtoHSL(unsigned char* RGBData, unsigned long int size)
 {
     float H, S, L, R, G, B,
           M, m, C, alpha, beta;
-ofstream out("HSL Image.txt");
+
     for(unsigned long int  i=0; i < size; i+=3)
     {
         // Przeskaluj przed wykoaniem algorytmu RGB do przedziału [0,1]
@@ -94,8 +89,6 @@ ofstream out("HSL Image.txt");
         M = maxRGB(R, G, B);
         m = minRGB(R, G, B);
         C = M - m;
-
-        out << "RGB(" << (int)(R*255.0) << ", " << (int)(G*255.0) << ", " << (int)(B*255.0) << ") = ";
 
         alpha = (2.0*R - G - B)/2.0;
         beta = sqrt(3)*(G - B)/2.0;
@@ -122,10 +115,7 @@ ofstream out("HSL Image.txt");
         RGBData[i] = H/360.0 * 255.0;
         RGBData[i + 1] = S * 255; // Przeskaluj [0,1] -> [0, 255]
         RGBData[i + 2] = L * 255; // Przeskaluj [0,1] -> [0, 255]
-
-        out << " HSL(" << H << ", " << S << ", " << L << ")" << endl;
     }
-    out.close();
 }
 
 
@@ -137,7 +127,6 @@ void RGBtoYUV(unsigned char* RGBData, unsigned long int size)
     unsigned char Y, U, V,
                   R, G, B;
 
-    ofstream out("YUB Image.txt");
     for(unsigned long int  i=0; i < size; i+=3)
     {
         R = RGBData[i];
@@ -148,13 +137,10 @@ void RGBtoYUV(unsigned char* RGBData, unsigned long int size)
         U = ( ( -38 * R -  74 * G + 112 * B + 128) >> 8) + 128;
         V = ( ( 112 * R -  94 * G -  18 * B + 128) >> 8) + 128;
 
-        out << (int)Y << " " << (int)U << " " << (int)V << endl;
-
         RGBData[i] = Y;
         RGBData[i + 1] = U;
         RGBData[i + 2] = V;
     }
-    out.close();
 }
 
 
