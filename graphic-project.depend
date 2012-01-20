@@ -283,3 +283,64 @@
 	"coder.h"
 	"decoder.h"
 
+1326823659 source:/home/bartek/projekt_grafika/decoder.cpp
+	<iostream>
+	<fstream>
+	"decoder.h"
+	<vector>
+	"filesformats.h"
+	<math.h>
+
+1326387425 /home/bartek/projekt_grafika/decoder.h
+	<inttypes.h>
+	<string>
+	<list>
+	<vector>
+	"uint2x12_t.h"
+
+1326184958 /home/bartek/projekt_grafika/uint2x12_t.h
+
+1326387425 /home/bartek/projekt_grafika/filesformats.h
+	<inttypes.h>
+	"uint2x12_t.h"
+	<string>
+	<list>
+	<vector>
+
+1326823659 source:/home/bartek/projekt_grafika/filesformats.cpp
+	"filesformats.h"
+	<iostream>
+	<fstream>
+	<math.h>
+
+1326823659 source:/home/bartek/projekt_grafika/options.cpp
+	"options.h"
+
+1326823659 /home/bartek/projekt_grafika/options.h
+	<string>
+
+1327077645 source:/home/bartek/projekt_grafika/coder.cpp
+	"coder.h"
+	"filesformats.h"
+	<iostream>
+	<fstream>
+	<math.h>
+
+1326823659 /home/bartek/projekt_grafika/coder.h
+	<string>
+	<list>
+	<inttypes.h>
+	"uint2x12_t.h"
+	"options.h"
+
+1327077645 source:/home/bartek/projekt_grafika/main.cpp
+	<iostream>
+	<cstring>
+	<fstream>
+	<list>
+	"uint2x12_t.h"
+	"filesformats.h"
+	"options.h"
+	"coder.h"
+	"decoder.h"
+
