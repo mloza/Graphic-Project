@@ -7,7 +7,7 @@ namespace filters
 {
 // Filtr różnicowy, nowa wartość koloru to różnica obecnej komórki i poprzedniej ( data[j] = data[j] - data[j-1] )
 // Pierwszy bajt jest pomijany
-bool differential_filter(unsigned char data*, int width, int height)
+bool differential_filter(unsigned char *data, int width, int height)
 {
     int dataj, prev, aktual;
     prev = data[0];
@@ -24,7 +24,7 @@ bool differential_filter(unsigned char data*, int width, int height)
 
 // filtr w górę,  nowa wartość koloru to różnica obecnej komórki i komórki powyżej ( data[j] = data[j] - data[j-width])
 // pierwszy wiersz jest pomijany
-void up_filter(unsigned char data*, int width, int height)
+void up_filter(unsigned char *data, int width, int height)
 {
     int dataj, prev, aktual;
     int upTmp[3*width];
@@ -49,7 +49,7 @@ void up_filter(unsigned char data*, int width, int height)
 }
 
 // pierwszy wiersz oraz pierwszy element drugiego wiersza są pomijane
-void paeth_filter(unsigned char data*, int width, int height)
+void paeth_filter(unsigned char *data, int width, int height)
 {
     int w; // predyktor, w = tab[1][0] + tab[0][1] - tab[0][0]
     int p; // wartość minimalna z tab[1][0], [0][1], tab[0][0]
@@ -85,7 +85,7 @@ void paeth_filter(unsigned char data*, int width, int height)
     }
 }
 
-void averaging_filter(unsigned char data*, int width, int height) // filtr uśredniający, nowa wartość koloru to suma koloru przed i ponad aktualnym podzielona przez 2
+void averaging_filter(unsigned char *data, int width, int height) // filtr uśredniający, nowa wartość koloru to suma koloru przed i ponad aktualnym podzielona przez 2
 {
     int dataj, prev, aktual, up;
     int diff  = 3*width;
