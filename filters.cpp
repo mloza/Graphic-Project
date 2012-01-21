@@ -39,7 +39,7 @@ void up_filter(std::vector<unsigned char> &data, int width, int height)
         dataj -= upTmp[i];
         if(dataj < 0)
             dataj += 256; // jeśli wartości są mniejsze od 0 to dodajemy 256
-
+        data[j] = dataj;
         upTmp[i] = aktual;
         i++;
         if(i == 3*width) // jeśli przejdzie całą linię to licznik jest zerowany
