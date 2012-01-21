@@ -169,6 +169,23 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
     if(!bitmapImageData)
         return false;
 
+    switch(getColorSpaceID(colorSpace))
+    {
+        case RGB:
+                  break;
+
+        case HSL: RGBtoHSL(bitmapImageData, bmpih.biSizeImage);
+                  break;
+
+        case HSV: RGBtoHSV(bitmapImageData, bmpih.biSizeImage);
+                  break;
+
+        case YUV: RGBtoYUV(bitmapImageData, bmpih.biSizeImage);
+                  break;
+        default:
+                 cout << "Otrzymano nieobslugiwana przestrzen barw!\n";
+                 return false;
+    }
 
     switch(getFilterID((filter)))
     {
@@ -189,24 +206,6 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
 
         default:
                  cout << "Otrzymano nieobslugiwany filter!\n";
-                 return false;
-    }
-
-    switch(getColorSpaceID(colorSpace))
-    {
-        case RGB:
-                  break;
-
-        case HSL: RGBtoHSL(bitmapImageData, bmpih.biSizeImage);
-                  break;
-
-        case HSV: RGBtoHSV(bitmapImageData, bmpih.biSizeImage);
-                  break;
-
-        case YUV: RGBtoYUV(bitmapImageData, bmpih.biSizeImage);
-                  break;
-        default:
-                 cout << "Otrzymano nieobslugiwana przestrzen barw!\n";
                  return false;
     }
 
