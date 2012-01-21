@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 */
     coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp", "HSL", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 
-    decoder::run("skompresowany.abmp", "result.bmp"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
+    decoder::run("skompresowany.abmp", "result.bmp", "HSL", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 
     return 0;
 }

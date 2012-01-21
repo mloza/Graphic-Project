@@ -198,7 +198,7 @@ bool run(const char* pathIn, const char* pathOut)
         rawData = HSLtoRGB(rawData, fileinfo);
     //}
 
-    saveBMPFile("decompressed.bmp", fileinfo->width, fileinfo->height, rawData);
+    saveBMPFile(pathOut, fileinfo->width, fileinfo->height, rawData);
 
     /*std::ofstream f2("t.txt");
     list<uint2x12_t>::iterator it;
