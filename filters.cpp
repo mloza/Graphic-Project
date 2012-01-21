@@ -62,3 +62,15 @@ void paeth_filter(unsigned char *data, int width, int height)
 
     }
 }
+void averaging_filter(unsigned char *data, int width, int height) // filtr uśredniający, nowa wartość koloru to suma koloru przed i ponad aktualnym podzielona przez 2
+{
+    int prev, up;// element poprzedni i powyżej
+    for(int j=3*width+1; j< width*height*3; j++)
+    {
+        prev = data[j-1];
+        up = data[j- 3*width];
+        data[j] = (prev+up)/2 + 255;
+        if(data[j] > 255)
+            data[j] = data[j] % 255;
+    }
+}
