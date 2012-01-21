@@ -3,12 +3,16 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <map>
+#include <string>
 
 using namespace std;
 
 unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość słów w słowniku */
-std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
+//std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords = 0;                             /**< ilość słów w słowniku */
+
+map<string, int> dictionary;
 
 float maxRGB(float R, float G, float B)
 {
@@ -163,7 +167,28 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
     if(!bitmapImageData)
         return false;
 
-    // TODO filtry
+
+    switch(getFilterID((filter)))
+    {
+        case NONE:
+                   break;
+
+        case DIFFERENTIAL:
+                   break;
+
+        case LINE_DIFFERENCE:
+                   break;
+
+        case AVERAGING:
+                   break;
+
+        case PAETH:
+                   break;
+
+        default:
+                 cout << "Otrzymano nieobslugiwany filter!\n";
+                 return false;
+    }
 
     switch(getColorSpaceID(colorSpace))
     {
