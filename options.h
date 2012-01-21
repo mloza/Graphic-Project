@@ -23,7 +23,11 @@ COLOR_SPACE getColorSpaceID(std::string name);
 enum FILTER_TYPE
 {
     UNDEFINED_FILTER = 666,
-    NONE = 0
+    NONE = 0,
+    DIFFERENTIAL,
+    LINE_DIFFERENCE,
+    AVERAGING,
+    PAETH
 };
 
 FILTER_TYPE getFilterID(std::string name);
