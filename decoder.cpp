@@ -193,10 +193,18 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
     std::vector<unsigned char> rawData = lzw(filedata);
 
-    //if(fileinfo->colorSpace == 3)
-    //{
-        rawData = HSLtoRGB(rawData, fileinfo);
-    //}
+    switch(fileinfo->colorSpace)
+    {
+        case 1:
+            rawData = HSVtoRGB(rawData, fileinfo);
+            break;
+        case 2:
+            rawData = HSLtoRGB(rawData, fileinfo);
+            break;
+        case 3:
+            rawData = YUVtoRGB(rawData, fileinfo);
+            break;
+    }
 
     saveBMPFile(pathOut, fileinfo->width, fileinfo->height, rawData);
 
