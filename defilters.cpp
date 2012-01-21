@@ -46,7 +46,7 @@ namespace defilter {
 
     bool paeth(std::vector<unsigned char> &data, int width, int height)
     {
-        int akt;
+        int akt, p, w;
         int diff = width*3;
         for(int j=diff+1; j<width*height*3; j++)
         {
