@@ -22,6 +22,7 @@ struct FILEINFO {
     uint32_t width;
     uint32_t height;
     uint32_t numberOf12;
+    uint8_t filterType;
 };
 
 /**

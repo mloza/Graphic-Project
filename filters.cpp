@@ -1,12 +1,37 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+namespace filters
+{
 // Filtr różnicowy, nowa wartość koloru to różnica obecnej komórki i poprzedniej ( data[j] = data[j] - data[j-1] )
 // Pierwszy bajt jest pomijany
 void differential_filter(unsigned char *data, int width, int height)
 {
+    ofstream f("out/org.txt");
+    unsigned char prev, aktual;
+    prev = data[0];
+    f << "Prev \t Akt \t Result\n";
     for(int j=1; j< width*height*3; j++)
     {
-        data[j] -= data[j-1]+255;
-        if(data[j] > 255)
-                data[j] = data[j]%255; // jeśli wartości są większe od 255 to ich nowa wartość jest resztą z dzielenia przez 255
+        aktual = data[j];
+
+        /*if(prev > data[j])
+        {
+             f << (int)prev << "\t" << (int)data[j] << "\t";
+            data[j] += (255 - prev);
+             f << (int)data[j] << endl;
+        } else {
+            data[j] -= prev;
+        }*/
+        data[j] -= prev;
+        if(data[j] < 0)
+        {
+            f << (int)prev << "\t" << (int)data[j] << "\t";
+            data[j] += 255; // jeśli wartości są mniejsze od 0 to dodajemy 255
+            f << (int)data[j] << endl;
+        }
+        prev = aktual;
     }
 }
 
@@ -61,4 +86,5 @@ void paeth_filter(unsigned char *data, int width, int height)
         data[j] -= p;
 
     }
+}
 }

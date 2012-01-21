@@ -56,7 +56,7 @@ int main(int argc, char** argv)
         decoder::run(argv[2], argv[3]);
     }
 */
-    coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp", "YUV", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
+    coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp", "RGB", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 
     decoder::run("skompresowany.abmp", "result.bmp"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 

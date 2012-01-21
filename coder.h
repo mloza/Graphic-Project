@@ -6,6 +6,7 @@
 #include <inttypes.h>
 #include "uint2x12_t.h"
 #include "options.h"
+#include "filters.h"
 
 using namespace std;
 namespace coder {
