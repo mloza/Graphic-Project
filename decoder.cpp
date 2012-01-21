@@ -3,13 +3,15 @@
 #include "decoder.h"
 #include <vector>
 #include "filesformats.h"
+#include "filters.h"
+#include "defilters.h"
 
 #include <math.h>
 using namespace std;
 
 namespace decoder
 {
-unsigned const int DICTIONARY_MAX_SIZE = 8192;      /** < maksymalna ilość słów w słowniku */
+unsigned const int DICTIONARY_MAX_SIZE = 4096;      /** < maksymalna ilość słów w słowniku */
 string dictionary[DICTIONARY_MAX_SIZE];             /** < słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords;                                /** < ilość słów w słowniku */
 
@@ -28,9 +30,6 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
     int y,u,v;
     int r,g,b;
 
-    //ofstream f("plik.txt");
-    //f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
-    //f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
@@ -48,8 +47,6 @@ std::vector<unsigned char> YUVtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i] = r;
             data[i+1] = g;
             data[i+2] = b;
-
-            //f << r << " " << g << " " << b << "\n";
     }
 
     return data;
@@ -61,9 +58,6 @@ std::vector<unsigned char> HSLtoRGB(std::vector<unsigned char> data, FILEINFO* f
     double r,g,b;
     int tmp;
 
-    //ofstream f("plik.txt");
-    //f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
-    //f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
@@ -109,10 +103,6 @@ std::vector<unsigned char> HSLtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i] = r*255;
             data[i+1] = g*255;
             data[i+2] = b*255;
-
-            //f << hp << " " << c << " " << x << " " << m << "\n";
-            //f << h << " " << s << " " << l << "\n";
-            //f << r << " " << g << " " << b << "\n\n";
     }
 
     return data;
@@ -124,9 +114,6 @@ std::vector<unsigned char> HSVtoRGB(std::vector<unsigned char> data, FILEINFO* f
     double r,g,b;
     int tmp;
 
-    //ofstream f("plik.txt");
-    //f << "W: " << fileinfo->width << "x" << fileinfo->height << "\n";
-    //f << fileinfo->height*fileinfo->width << "\n";
     for(int i=0; i<fileinfo->height*fileinfo->width*3; i+=3)
     {
             // dla prostrzego rachunku przypisujemy sobie do nowych zmiennych Y, U, i V
@@ -171,10 +158,6 @@ std::vector<unsigned char> HSVtoRGB(std::vector<unsigned char> data, FILEINFO* f
             data[i] = r*255;
             data[i+1] = g*255;
             data[i+2] = b*255;
-
-            //f << hp << " " << c << " " << x << " " << m << "\n";
-            //f << h << " " << s << " " << v << "\n";
-            //f << r << " " << g << " " << b << "\n\n";
     }
 
     return data;
@@ -188,6 +171,12 @@ bool run(const char* pathIn, const char* pathOut)
     std::list<uint2x12_t>* filedata = new std::list<uint2x12_t>;
     loadFile(pathIn, fileinfo, filedata);
     cout << "Wymiary: " << fileinfo->width << " x " << fileinfo->height << "\n";
+
+    if(fileinfo->fileType != ':)')
+    {
+        cout << "Nieprawidłowy plik \n";
+        return false;
+    }
 
     cout << "+++ Plik zaladowany, dekodowanie +++\n";
     cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
@@ -206,14 +195,23 @@ bool run(const char* pathIn, const char* pathOut)
             break;
     }
 
-    saveBMPFile(pathOut, fileinfo->width, fileinfo->height, rawData);
-
-    /*std::ofstream f2("t.txt");
-    list<uint2x12_t>::iterator it;
-    for(it=rawData->begin(); it != rawData->end(); it++)
+    switch(fileinfo->filterType)
     {
-        f2 << *it << " ";
-    }*/
+        case 1:
+            defilter::differential(rawData, fileinfo->width, fileinfo->height);
+            break;
+        case 2:
+            defilter::line_differential(rawData, fileinfo->width, fileinfo->height);
+            break;
+        case 3:
+            defilter::average(rawData, fileinfo->width, fileinfo->height);
+            break;
+        case 4:
+            defilter::paeth(rawData, fileinfo->width, fileinfo->height);
+            break;
+    }
+
+    saveBMPFile(pathOut, fileinfo->width, fileinfo->height, rawData);
 }
 
 std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
@@ -234,11 +232,7 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
     std::vector<unsigned char> pc;
     unsigned int pk = dataIn->begin()->v1;
 
-    //std::ofstream f("t.txt", ios::out);
-    //f << "a";
     result.push_back(dict[pk][0]);
-    //obliczenia dla pierwszego v2
-    //jeśli jest w słowniku
     act = dataIn->begin()->v2;
     pc = dict[pk];
     if(act < nWords)
@@ -310,7 +304,6 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
             pk = act;
             act = it->v2;
         }
-        //f << nWords << "\n";
         pk = act;
         if((int)((double)i++/(double)size*100.) != progress)
         {
@@ -319,7 +312,6 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
         }
     }
     cout << "\nKoniec dekodowania \n";
-    //f.close();
     return result;
 }
 }

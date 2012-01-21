@@ -1,5 +1,7 @@
 #include "coder.h"
 #include "filesformats.h"
+#include "filters.h"
+#include "defilters.h"
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -9,10 +11,10 @@
 using namespace std;
 
 unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość słów w słowniku */
-//std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
+std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
 unsigned int nWords = 0;                             /**< ilość słów w słowniku */
 
-map<string, int> dictionary;
+//map<string, int> dictionary;
 
 float maxRGB(float R, float G, float B)
 {
@@ -173,16 +175,16 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
         case NONE:
                    break;
 
-        case DIFFERENTIAL:
+        case DIFFERENTIAL: filters::differential_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
                    break;
 
-        case LINE_DIFFERENCE:
+        case LINE_DIFFERENCE: filters::up_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
                    break;
 
-        case AVERAGING:
+        case AVERAGING: filters::averaging_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
                    break;
 
-        case PAETH:
+        case PAETH: filters::paeth_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
                    break;
 
         default:
@@ -216,6 +218,7 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
     fileinfo.width = bmpih.biWidth;
     fileinfo.height = bmpih.biHeight;
     fileinfo.numberOf12 = numberOf12;
+    fileinfo.filterType = getFilterID(filter);
 
     if(!saveFile(pathOut, &fileinfo, compressedImage))
         return false;

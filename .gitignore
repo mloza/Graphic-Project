@@ -1,6 +1,8 @@
 bin/
 obj/
 
+graphic-project.depend
+
 # Compiled source #
 ###################
 *.com
