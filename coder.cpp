@@ -1,6 +1,7 @@
 #include "coder.h"
 #include "filesformats.h"
 #include "filters.h"
+#include "defilters.h"
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -183,9 +184,6 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
                  cout << "Otrzymano nieobslugiwana przestrzen barw!\n";
                  return false;
     }
-
-    // filtr
-    //filters::differential_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 

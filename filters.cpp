@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 namespace filters
 {
 // Filtr różnicowy, nowa wartość koloru to różnica obecnej komórki i poprzedniej ( data[j] = data[j] - data[j-1] )
 // Pierwszy bajt jest pomijany
-void differential_filter(unsigned char *data, int width, int height)
+bool differential_filter(std::vector<unsigned char> &data, int width, int height)
 {
     int dataj, prev, aktual;
     prev = data[0];
@@ -15,7 +16,7 @@ void differential_filter(unsigned char *data, int width, int height)
         aktual = dataj = data[j];
         dataj -= prev;
         if(dataj < 0)
-            dataj += 255; // jeśli wartości są mniejsze od 0 to dodajemy 255
+            dataj += 256; // jeśli wartości są mniejsze od 0 to dodajemy 255
         data[j] = dataj;
         prev = aktual;
     }

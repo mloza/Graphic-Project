@@ -3,6 +3,7 @@
 #include "decoder.h"
 #include <vector>
 #include "filesformats.h"
+#include "filters.h"
 #include "defilters.h"
 
 #include <math.h>
@@ -181,10 +182,13 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
     std::vector<unsigned char> rawData = lzw(filedata);
 
+    filters::differential_filter(rawData, fileinfo->width, fileinfo->height);
+    defilter::differential(rawData, fileinfo->width, fileinfo->height);
+
     switch(fileinfo->filterType)
     {
         case 1:
-            defilter::differential(rawData, fileinfo->width, fileinfo->height);
+            //defilter::differential(rawData, fileinfo->width, fileinfo->height);
             break;
         case 2:
 

@@ -1,7 +1,10 @@
 #ifndef FILTERS_H
 #define FILTERS_H
+
+#include <vector>
+
 namespace filters {
-    void differential_filter(unsigned char *data, int width, int height);
+    bool differential_filter(std::vector<unsigned char> &data, int width, int height);
 }
 
 #endif
