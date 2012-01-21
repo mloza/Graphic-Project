@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <math.h>
 
 using namespace std;
 
@@ -48,7 +49,6 @@ namespace defilter {
     {
         int akt, p, w;
         int diff = width*3;
-        ofstream a("out/a-d.txt");
         for(int j=diff+1; j<width*height*3; j++)
         {
             w = data[j-1] + data[j-diff] - data[j-diff-1];
@@ -56,9 +56,8 @@ namespace defilter {
             p-=w;
 
             akt = data[j] + p;
-            if(akt > 255) akt %= 256;
+            if(fabs(akt) > 255) akt %= 256;
             if(akt < 0) akt += 256;
-            a << akt << "\t" << (int)data[j] << "\t" << (int)data[j-1] << "\t" << (int)data[j-diff] << "\t" << (int)data[j-diff-1] << "\t" << (int)w << "\t" << (int)p << endl;
             data[j] = akt;
         }
         return true;

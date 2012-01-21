@@ -182,19 +182,19 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
     std::vector<unsigned char> rawData = lzw(filedata);
 
-    filters::paeth_filter(rawData, fileinfo->width, fileinfo->height);
-    defilter::paeth(rawData, fileinfo->width, fileinfo->height);
-
     switch(fileinfo->filterType)
     {
         case 1:
-            //defilter::differential(rawData, fileinfo->width, fileinfo->height);
+            defilter::differential(rawData, fileinfo->width, fileinfo->height);
             break;
         case 2:
-
+            defilter::line_differential(rawData, fileinfo->width, fileinfo->height);
             break;
         case 3:
-
+            defilter::average(rawData, fileinfo->width, fileinfo->height);
+            break;
+        case 4:
+            defilter::paeth(rawData, fileinfo->width, fileinfo->height);
             break;
     }
 
