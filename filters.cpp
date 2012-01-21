@@ -24,7 +24,7 @@ bool differential_filter(std::vector<unsigned char> &data, int width, int height
 
 // filtr w górę,  nowa wartość koloru to różnica obecnej komórki i komórki powyżej ( data[j] = data[j] - data[j-width])
 // pierwszy wiersz jest pomijany
-void up_filter(unsigned char *data, int width, int height)
+void up_filter(std::vector<unsigned char> &data, int width, int height)
 {
     int dataj, prev, aktual;
     int upTmp[3*width];
