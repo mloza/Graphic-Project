@@ -26,11 +26,25 @@ bool differential_filter(std::vector<unsigned char> &data, int width, int height
 // pierwszy wiersz jest pomijany
 void up_filter(unsigned char *data, int width, int height)
 {
+    int dataj, prev, aktual;
+    int upTmp[3*width];
+    for(int i=0; i <3*width; i++)
+    {
+        upTmp[i] = data[i];
+    }
+    int i=0; // licznik szerokości tablicy upTmp
     for(int j=3*width; j< width*height*3; j++)
     {
-        data[j] = data[j] - data[j-3*width] +256;
-        if(data[j] > 255)
-            data[j] = data[j]%256; // jeśli wartości są większe od 255 to ich nowa wartość jest resztą z dzielenia przez 256
+        aktual = dataj = data[j];
+        dataj -= upTmp[i];
+        if(dataj < 0)
+            dataj += 256; // jeśli wartości są mniejsze od 0 to dodajemy 256
+
+        upTmp[i] = aktual;
+        i++;
+        if(i == 3*width) // jeśli przejdzie całą linię to licznik jest zerowany
+            i = 0;
+
     }
 }
 
