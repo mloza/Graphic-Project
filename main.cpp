@@ -34,11 +34,16 @@ using namespace std;
  *            HSL
  *            YUV
  *  argv[5] = wybrany filtr
+ *            NONE
+ *            DIFFERENTIAL
+ *            LINE_DIFFERENCE
+ *            AVERAGING
+ *            PAETH
  *
  */
 int main(int argc, char** argv)
 {
- /*   if(argc < 4)
+    if(argc < 4)
     {
         // TODO: Zrobic tutaj opis..
         cout << "Sposob uzycia:\n";
@@ -55,10 +60,10 @@ int main(int argc, char** argv)
     {
         decoder::run(argv[2], argv[3]);
     }
-*/
+/*
     coder::run("test-files/01-300x200x24bit.bmp", "skompresowany.abmp", "YUV", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 
     decoder::run("skompresowany.abmp", "result.bmp"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
-
+*/
     return 0;
 }
