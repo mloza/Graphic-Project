@@ -190,7 +190,7 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Wymiary: " << fileinfo->width << " x " << fileinfo->height << "\n";
 
     cout << "+++ Plik zaladowany, dekodowanie +++\n";
-    cout << "Ilosc 12: " << fileinfo->numberOf12;
+    cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
     std::vector<unsigned char> rawData = lzw(filedata);
 
     //if(fileinfo->colorSpace == 3)
@@ -226,8 +226,8 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
     std::vector<unsigned char> pc;
     unsigned int pk = dataIn->begin()->v1;
 
-    std::ofstream f("t.txt", ios::out);
-    f << "a";
+    //std::ofstream f("t.txt", ios::out);
+    //f << "a";
     result.push_back(dict[pk][0]);
     //obliczenia dla pierwszego v2
     //jeśli jest w słowniku
@@ -244,7 +244,6 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
         for(int j = 0; j<dict[act].size(); j++)
         {
             result.push_back(dict[act][j]);
-
         }
     }
     else
@@ -262,6 +261,9 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
     }
     pk = act;
 
+    int size = dataIn->size();
+    int progress;
+    int i = 1;
     for(it=++dataIn->begin(); it != dataIn->end(); it++)
     {
         act = it->v1;
@@ -283,7 +285,6 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
                 for(int j = 0; j<dict[act].size(); j++)
                 {
                     result.push_back(dict[act][j]);
-
                 }
             }
             else
@@ -301,11 +302,16 @@ std::vector<unsigned char> lzw(std::list<uint2x12_t>* dataIn)
             pk = act;
             act = it->v2;
         }
-        f << nWords << "\n";
+        //f << nWords << "\n";
         pk = act;
+        if((int)((double)i++/(double)size*100.) != progress)
+        {
+            progress = (int)((double)i++/(double)size*100.);
+            cout << "Trwa dekompresowanie obrazu... [" << progress << "%]\n";
+        }
     }
     cout << "\nKoniec dekodowania \n";
-    f.close();
+    //f.close();
     return result;
 }
 }
