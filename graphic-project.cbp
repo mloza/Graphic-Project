@@ -40,6 +40,8 @@
 		<Unit filename="coder.h" />
 		<Unit filename="decoder.cpp" />
 		<Unit filename="decoder.h" />
+		<Unit filename="defilters.cpp" />
+		<Unit filename="defilters.h" />
 		<Unit filename="filesformats.cpp" />
 		<Unit filename="filesformats.h" />
 		<Unit filename="filters.cpp" />

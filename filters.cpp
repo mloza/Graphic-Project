@@ -16,7 +16,7 @@ bool differential_filter(std::vector<unsigned char> &data, int width, int height
         aktual = dataj = data[j];
         dataj -= prev;
         if(dataj < 0)
-            dataj += 256; // jeśli wartości są mniejsze od 0 to dodajemy 255
+            dataj += 256; // jeśli wartości są mniejsze od 0 to dodajemy 256
         data[j] = dataj;
         prev = aktual;
     }
@@ -28,9 +28,9 @@ void up_filter(unsigned char *data, int width, int height)
 {
     for(int j=3*width; j< width*height*3; j++)
     {
-        data[j] = data[j] - data[j-3*width] +255;
+        data[j] = data[j] - data[j-3*width] +256;
         if(data[j] > 255)
-            data[j] = data[j]%255; // jeśli wartości są większe od 255 to ich nowa wartość jest resztą z dzielenia przez 255
+            data[j] = data[j]%256; // jeśli wartości są większe od 255 to ich nowa wartość jest resztą z dzielenia przez 256
     }
 }
 
@@ -45,21 +45,21 @@ void paeth_filter(unsigned char *data, int width, int height)
         prev = data[j-1];
         up = data[j- 3*width];
         diag = data[j- 3*width-1];
-        w = prev + up - diag +255;
+        w = prev + up - diag +256;
         if(w > 255)
-            w = w % 255;
+            w = w % 256;
 
-        prev -= w +255;
+        prev -= w +256;
         if(prev > 255)
-            prev = prev % 255;
+            prev = prev % 256;
 
-        up -= w +255;
+        up -= w +256;
         if(up > 255)
-            up = up % 255;
+            up = up % 256;
 
-        diag -= w +255;
+        diag -= w +256;
         if(diag > 255)
-            diag = diag % 255;
+            diag = diag % 256;
 
         //wyznaczenie elementu minimalnego
         if(prev <= up)
@@ -82,9 +82,9 @@ void averaging_filter(unsigned char *data, int width, int height) // filtr uśre
     {
         prev = data[j-1];
         up = data[j- 3*width];
-        data[j] = (prev+up)/2 + 255;
+        data[j] = (prev+up)/2 + 256;
         if(data[j] > 255)
-            data[j] = data[j] % 255;
+            data[j] = data[j] % 256;
     }
 }
 }
