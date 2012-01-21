@@ -8,29 +8,15 @@ namespace filters
 // Pierwszy bajt jest pomijany
 void differential_filter(unsigned char *data, int width, int height)
 {
-    ofstream f("out/org.txt");
-    unsigned char prev, aktual;
+    int dataj, prev, aktual;
     prev = data[0];
-    f << "Prev \t Akt \t Result\n";
     for(int j=1; j< width*height*3; j++)
     {
-        aktual = data[j];
-
-        /*if(prev > data[j])
-        {
-             f << (int)prev << "\t" << (int)data[j] << "\t";
-            data[j] += (255 - prev);
-             f << (int)data[j] << endl;
-        } else {
-            data[j] -= prev;
-        }*/
-        data[j] -= prev;
-        if(data[j] < 0)
-        {
-            f << (int)prev << "\t" << (int)data[j] << "\t";
-            data[j] += 255; // jeśli wartości są mniejsze od 0 to dodajemy 255
-            f << (int)data[j] << endl;
-        }
+        aktual = dataj = data[j];
+        dataj -= prev;
+        if(dataj < 0)
+            dataj += 255; // jeśli wartości są mniejsze od 0 to dodajemy 255
+        data[j] = dataj;
         prev = aktual;
     }
 }

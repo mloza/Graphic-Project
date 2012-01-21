@@ -185,7 +185,7 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
     }
 
     // filtr
-    filters::differential_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
+    //filters::differential_filter(bitmapImageData, bmpih.biWidth, bmpih.biHeight);
 
     compressedImage = lzw(bitmapImageData, bmpih.biSizeImage, &numberOf12);
 
@@ -195,7 +195,7 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
     fileinfo.width = bmpih.biWidth;
     fileinfo.height = bmpih.biHeight;
     fileinfo.numberOf12 = numberOf12;
-    fileinfo.filterType = 1;
+    fileinfo.filterType = 0;
 
     if(!saveFile(pathOut, &fileinfo, compressedImage))
         return false;
