@@ -6,15 +6,11 @@
 #include <fstream>
 #include <math.h>
 #include <map>
+#include <vector>
 #include <string>
 
 using namespace std;
 
-unsigned const int DICTIONARY_MAX_SIZE = 4096;       /**< maksymalna ilość słów w słowniku */
-std::string dictionary[DICTIONARY_MAX_SIZE];         /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
-unsigned int nWords = 0;                             /**< ilość słów w słowniku */
-
-//map<string, int> dictionary;
 
 float maxRGB(float R, float G, float B)
 {
@@ -227,24 +223,6 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
 }
 
 /**
- *  @brief Funkcja sprawdza na jakiej pozycji w słowniku znajduje się dane słowo.
- *  @param word Słowo do sprawdzenia.
- *  @return Indeks słowa jeśli jest w słowniku, w przeciwnym wypadku -1;
- */
-int getDictionaryIdx(string word)
-{
-    for(int i=0; i < nWords; i++)
-    {
-        if(word == dictionary[i])
-        {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-/**
  *  @brief Funkcja kompresująca dane wejściowe algorytmem LZW.
  *  @param data Dane wejściowe, które podlegają kompresji.
  *  @param dataSize Rozmiar danych wejściowych.
@@ -253,31 +231,42 @@ int getDictionaryIdx(string word)
  */
 std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSize, unsigned int *numberOf12_in)
 {
-    nWords = 0; // Zeruj zmienna globalna z iloscia slow przed kazda kompresja
+    map<vector<int>, int> dictionary;                /**< słownik przechowujący słowa zapisane w ciągu bajtów (string) */
+    unsigned const int DICTIONARY_MAX_SIZE = 4096;   /**< maksymalna ilość słów w słowniku */
+    unsigned int nWords = 0;                         /**< ilość słów w słowniku */
+
     unsigned int numberOf12 = 0; // Ilość zapisanych dwunastobitowych indeksów
     std::list<uint2x12_t> *compressedData = new std::list<uint2x12_t>;
     unsigned long int actualIdx = 0; // Index aktualnie pobieranego bajtu danych wejściowych
     int percentComplete, oldPercentComplete = 0;
-    string word = "";
+    vector<int> word;
 
+    vector<int> tmpv;
     for(int i=0; i< 256; i++)
     {
-        dictionary[i] = i; // wypełnianie słownika alfabetem
+        // dictionary[i] = i;
+        tmpv.push_back(i);
+        dictionary.insert(pair<vector<int>, int>(tmpv, i)); // wypełnianie słownika alfabetem
+        tmpv.clear();
         nWords++;
     }
-
 
     uint2x12_t tmp;
     // Kodowanie danych dopóki mamy dane na wejściu
     while(actualIdx < dataSize)
     {
-        if(getDictionaryIdx(word + (char)data[actualIdx]) < 0)
+        word.push_back((int)data[actualIdx]);  // word = word + aktualny znak
+        if(dictionary.count(word) == 0)
+        //if(getDictionaryIdx(word + (char)data[actualIdx]) < 0)
         {
             // Jeżeli nie ma słowa z aktualnym znakiem w słowniku to zapisuj pod odpowiednie pola uint2x12_t
+            word.pop_back();   // word = word
             if(numberOf12 % 2 == 0)
-                tmp.v1 = getDictionaryIdx(word);
+                tmp.v1 = dictionary[word];
+                //tmp.v1 = getDictionaryIdx(word);
             else
-                tmp.v2 = getDictionaryIdx(word);
+                tmp.v2 = dictionary[word];
+                //tmp.v2 = getDictionaryIdx(word);
             numberOf12++;
 
             // Co dwie 12-stki zapisuj uint2x12_t na listę
@@ -288,17 +277,19 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
 
             if(nWords < DICTIONARY_MAX_SIZE)
             {
-                dictionary[nWords] = word + (char)data[actualIdx]; // dodaj słowo z aktualnym znakiem do słownika
+                word.push_back((int)data[actualIdx]);  // word = word + aktualny znak
+                dictionary.insert(pair<vector<int>, int>(word, nWords));
+                //dictionary[nWords] = word + (char)data[actualIdx]; // dodaj słowo z aktualnym znakiem do słownika
                 nWords++;
             }
 
-            word=""; // Wyzeruj słowo, poniżej dodawany jest do niego aktualny znak
+            word.clear(); // Wyzeruj słowo i dodaj aktualny znak
+            word.push_back((int)data[actualIdx]);
         }
 
-        // Dodaj aktualny znak i przesuń się na następny
-        word += data[actualIdx];
-
+        // Przesuń się na następny znak
         actualIdx++;
+
         percentComplete = (int)((float)actualIdx/(float)dataSize * 100);
         if(percentComplete != oldPercentComplete)
             cout << "Trwa kompresowanie obrazu... [" << percentComplete << "%]" << endl;
@@ -309,14 +300,14 @@ std::list<uint2x12_t>* coder::lzw(unsigned char* data, unsigned long int dataSiz
     if(numberOf12 % 2 == 0)
     {
         // Jeżeli zapisało już parzystą liczbę 12-stek (pełną uint2x12_t) to dołóż niepatrzystą 12-stkę - ostatnia wartość ignorowana
-        tmp.v1 = getDictionaryIdx(word);
+        tmp.v1 = dictionary[word];
         tmp.v2 = 0;
         compressedData->push_back(tmp);
     }
     else
     {
         // Jeżeli jest nieparzysta licza 12-stek to do aktualnej uint2x12_t dołóż niepatrzystą 12-stkę
-        tmp.v2 = getDictionaryIdx(word);
+        tmp.v2 = dictionary[word];
         compressedData->push_back(tmp);
     }
 
