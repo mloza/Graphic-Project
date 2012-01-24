@@ -27,13 +27,14 @@ bool differential_filter(unsigned char *data, int width, int height)
 void up_filter(unsigned char *data, int width, int height)
 {
     int dataj, prev, aktual;
-    int upTmp[3*width];
+    int diff=3*width;
+    int upTmp[diff]; // tablica elementów linię ponad aktualnymi
     for(int i=0; i <3*width; i++)
     {
         upTmp[i] = data[i];
     }
     int i=0; // licznik szerokości tablicy upTmp
-    for(int j=3*width; j< width*height*3; j++)
+    for(int j=diff; j< width*height*3; j++)
     {
         aktual = dataj = data[j];
         dataj -= upTmp[i];
@@ -47,16 +48,17 @@ void up_filter(unsigned char *data, int width, int height)
 
     }
 }
-
+// filtr Paeth'a, najpierw obliczamy predyktor w, odejmujemy od każdego z 3 kolorów otaczających predyktor,
+// wybieramy z nich minimum (p) , nowa wartość koloru to różnica koloru aktualnego i p
 // pierwszy wiersz oraz pierwszy element drugiego wiersza są pomijane
 void paeth_filter(unsigned char *data, int width, int height)
 {
-    int w; // predyktor, w = tab[1][0] + tab[0][1] - tab[0][0]
-    int p; // wartość minimalna z tab[1][0], [0][1], tab[0][0]
+    int w; // predyktor, w = t[1][0] + t[0][1] - t[0][0]
+    int p; // wartość minimalna z t[1][0], t[0][1], t[0][0]
 
-    int dataj, prev, aktual, up, diag;
+    int dataj, aktual, prev, up, diag; // element aktualny, tmp aktualnego, poprzedni, powyżej i nad poprzednim
     int diff  = 3*width;
-    int upTmp[diff];
+    int upTmp[diff]; // tablica elementów linię ponad aktualnymi
     for(int i=0; i<diff; i++)
     {
         upTmp[i] = data[i];
@@ -85,11 +87,12 @@ void paeth_filter(unsigned char *data, int width, int height)
     }
 }
 
-void averaging_filter(unsigned char *data, int width, int height) // filtr uśredniający, nowa wartość koloru to suma koloru przed i ponad aktualnym podzielona przez 2
+// filtr uśredniający, nowa wartość koloru to suma koloru przed i ponad aktualnym podzielona przez 2
+void averaging_filter(unsigned char *data, int width, int height)
 {
     int dataj, prev, aktual, up;
     int diff  = 3*width;
-    int upTmp[diff];
+    int upTmp[diff]; // tablica elementów linię ponad aktualnymi
     for(int i=0; i<diff; i++)
     {
         upTmp[i] = data[i];
