@@ -182,7 +182,7 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
     std::vector<unsigned char> rawData = lzw(filedata);
 
-    switch(fileinfo->colorSpace)
+    switch(fileinfo->filterType)
     {
         case 1:
             rawData = HSVtoRGB(rawData, fileinfo);
