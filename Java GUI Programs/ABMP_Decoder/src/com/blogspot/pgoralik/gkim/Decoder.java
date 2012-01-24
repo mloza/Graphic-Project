@@ -3,6 +3,8 @@ package com.blogspot.pgoralik.gkim;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -97,8 +99,14 @@ class DecodeRunnable implements Runnable {
             });
             
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            String msg = "Nie można uruchomić programu\n\r";
+            Pattern p = Pattern.compile("\".*\"");
+            Matcher m = p.matcher(e.getMessage());
+            m.find();
+            msg += e.getMessage().substring(m.start(), m.end() - 1) + "\n\r";
+            msg += "Upewnij się, że pod powyższą lokalizacją znajduje się odpowiedni plik.";
+                    
+            JOptionPane.showMessageDialog(null, msg, "Błąd!", JOptionPane.ERROR_MESSAGE);
 	}
     }
     

@@ -171,7 +171,6 @@ public class CoderUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void KonwertujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KonwertujButtonActionPerformed
-        // TODO add your handling code here:
         KonwertujButton.setEnabled(false);
         
         String filter = (String) FiltrComboBox.getSelectedItem();

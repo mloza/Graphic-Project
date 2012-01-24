@@ -176,7 +176,6 @@ public class DecoderUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DekodujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DekodujButtonActionPerformed
-        // TODO add your handling code here:
         DekodujButton.setEnabled(false);
         
         new Decoder().execute(ABMPTextField.getText(), BMPTextField.getText());
