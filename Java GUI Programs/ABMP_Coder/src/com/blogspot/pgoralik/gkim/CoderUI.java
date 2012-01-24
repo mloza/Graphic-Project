@@ -1,6 +1,5 @@
 package com.blogspot.pgoralik.gkim;
 
-import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -8,7 +7,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import sun.security.util.Cache;
 
 /*
  * To change this template, choose Tools | Templates
@@ -26,6 +24,9 @@ public class CoderUI extends javax.swing.JFrame {
      */
     public CoderUI() {
         initComponents();
+        
+        jFileChooserBMP.setFileFilter(new FileNameExtensionFilter("BMP", "bmp"));
+        jFileChooserABMP.setFileFilter(new FileNameExtensionFilter("Alternative BMP", "abmp"));
     }
 
     /**
@@ -197,8 +198,8 @@ public class CoderUI extends javax.swing.JFrame {
     }//GEN-LAST:event_KonwertujButtonActionPerformed
 
     private void ABMPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMPButtonActionPerformed
-        jFileChooserABMP.setFileFilter(new FileNameExtensionFilter("Alternative BMP", "abmp"));
-        jFileChooserABMP.setSelectedFile(new File(System.getProperty("java.class.path")));
+        String dir = new File(System.getProperty("java.class.path")).getParent() + "/ ";
+        jFileChooserABMP.setSelectedFile(new File(dir));
         String s = ABMPTextField.getText();
         if(s != null)
             jFileChooserABMP.setSelectedFile(new File(s));
@@ -210,8 +211,8 @@ public class CoderUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ABMPButtonActionPerformed
 
     private void BMPImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BMPImageMouseClicked
-        jFileChooserBMP.setSelectedFile(new File(System.getProperty("java.class.path")));
-        jFileChooserBMP.setFileFilter(new FileNameExtensionFilter("BMP", "bmp"));
+        String dir = new File(System.getProperty("java.class.path")).getParent() + "/ ";
+        jFileChooserBMP.setSelectedFile(new File(dir));
         int result = jFileChooserBMP.showOpenDialog(this);
         if(result ==  JFileChooser.APPROVE_OPTION) {
             File bmpPath = jFileChooserBMP.getSelectedFile();

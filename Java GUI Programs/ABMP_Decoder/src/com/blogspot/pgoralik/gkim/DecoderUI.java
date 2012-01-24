@@ -24,6 +24,9 @@ public class DecoderUI extends javax.swing.JFrame {
      */
     public DecoderUI() {
         initComponents();
+        
+        jFileChooserBMP.setFileFilter(new FileNameExtensionFilter("BMP", "bmp"));
+        jFileChooserABMP.setFileFilter(new FileNameExtensionFilter("Alternative BMP", "abmp"));
     }
 
     /**
@@ -107,6 +110,7 @@ public class DecoderUI extends javax.swing.JFrame {
             }
         });
 
+        BMPImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jScrollPane1.setViewportView(BMPImage);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -168,8 +172,6 @@ public class DecoderUI extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        jPanel3.getAccessibleContext().setAccessibleName("Plik wyjściowy BMP");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,8 +183,8 @@ public class DecoderUI extends javax.swing.JFrame {
     }//GEN-LAST:event_DekodujButtonActionPerformed
 
     private void ABMPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMPButtonActionPerformed
-        jFileChooserABMP.setFileFilter(new FileNameExtensionFilter("Alternative BMP", "abmp"));
-        jFileChooserABMP.setSelectedFile(new File(System.getProperty("java.class.path")));
+        String dir = new File(System.getProperty("java.class.path")).getParent() + "/ ";
+        jFileChooserABMP.setSelectedFile(new File(dir));
         int result = jFileChooserABMP.showOpenDialog(this);
         if(result ==  JFileChooser.APPROVE_OPTION) {
             File abmpPath = jFileChooserABMP.getSelectedFile();
@@ -194,8 +196,8 @@ public class DecoderUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ABMPButtonActionPerformed
 
     private void BMPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMPButtonActionPerformed
-        jFileChooserBMP.setSelectedFile(new File(System.getProperty("java.class.path")));
-        jFileChooserBMP.setFileFilter(new FileNameExtensionFilter("BMP", "bmp"));
+        String dir = new File(System.getProperty("java.class.path")).getParent() + "/ ";
+        jFileChooserBMP.setSelectedFile(new File(dir));
         String s = BMPTextField.getText();
         if(s != null)
             jFileChooserBMP.setSelectedFile(new File(s));
