@@ -1,4 +1,5 @@
 #include "filesformats.h"
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -51,7 +52,6 @@ unsigned char* loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader)
     BITMAPFILEHEADER bitmapFileHeader; // nagłówek pliku
     int imageIdx = 0; // licznik bajtów obrazu
     unsigned char *data;
-
     // otwarcie pliku w trybie binarnym
     ifstream infile;
     infile.open(path, ios::binary);
