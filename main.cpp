@@ -43,7 +43,7 @@ using namespace std;
  */
 int main(int argc, char** argv)
 {
-/*
+
     if(argc < 4)
     {
         cout << "Sposob uzycia:\n";
@@ -75,11 +75,11 @@ int main(int argc, char** argv)
     {
         decoder::run(argv[2], argv[3]);
     }
-*/
 
-    coder::run("test-files/01-450x300x24bit.bmp", "skompresowany.abmp", "RGB", "NONE"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
+/*
+    coder::run("test-files/01-450x300x24bit.bmp", "skompresowany.abmp", "YUV", "PAETH"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
 
     decoder::run("skompresowany.abmp", "result.bmp"); // DO TESTOW RECZNE USTAWIANIE PARAMETROW
-
+*/
     return 0;
 }

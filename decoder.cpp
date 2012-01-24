@@ -182,19 +182,6 @@ bool run(const char* pathIn, const char* pathOut)
     cout << "Ilosc 12: " << fileinfo->numberOf12 << endl;
     std::vector<unsigned char> rawData = lzw(filedata);
 
-    switch(fileinfo->colorSpace)
-    {
-        case 1:
-            rawData = HSVtoRGB(rawData, fileinfo);
-            break;
-        case 2:
-            rawData = HSLtoRGB(rawData, fileinfo);
-            break;
-        case 3:
-            rawData = YUVtoRGB(rawData, fileinfo);
-            break;
-    }
-
     switch(fileinfo->filterType)
     {
         case 1:
@@ -208,6 +195,19 @@ bool run(const char* pathIn, const char* pathOut)
             break;
         case 4:
             defilter::paeth(rawData, fileinfo->width, fileinfo->height);
+            break;
+    }
+
+    switch(fileinfo->colorSpace)
+    {
+        case 1:
+            rawData = HSVtoRGB(rawData, fileinfo);
+            break;
+        case 2:
+            rawData = HSLtoRGB(rawData, fileinfo);
+            break;
+        case 3:
+            rawData = YUVtoRGB(rawData, fileinfo);
             break;
     }
 
