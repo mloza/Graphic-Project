@@ -87,7 +87,23 @@ unsigned char* loadBMPFile(const char* path, BITMAPINFOHEADER *bitmapInfoHeader)
         }
 
         // wczytywanie danych obrazu
-        infile.read((char *)data, bitmapInfoHeader->biSizeImage);
+        //infile.read((char *)data, bitmapInfoHeader->biSizeImage);
+
+        // wczytywanie danych obrazu z uwzglednieniem podzielnosci dlugosci wiersza przez 4
+        for(int i=0; i < bitmapInfoHeader->biHeight; i++)
+        {
+            int j;
+            for(j=0; j < bitmapInfoHeader->biWidth*3; j++)
+            {
+                infile.read((char*)&data[i*bitmapInfoHeader->biWidth*3+j], sizeof(char));
+            }
+            // dopełnienie
+            while(j%4 != 0)
+            {
+                infile.get();
+                j++;
+            }
+        }
 
         // sprawdzenie, czy operacja się powiodła
         if(data == NULL)
