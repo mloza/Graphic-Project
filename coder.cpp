@@ -209,7 +209,6 @@ bool coder::run(const char* pathIn, const char* pathOut, const char* colorSpace,
 
     fileinfo.fileType = ':)';
     fileinfo.colorSpace = getColorSpaceID(colorSpace);
-    fileinfo.bpp = 24;
     fileinfo.width = bmpih.biWidth;
     fileinfo.height = bmpih.biHeight;
     fileinfo.numberOf12 = numberOf12;

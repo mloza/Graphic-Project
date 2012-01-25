@@ -18,11 +18,10 @@ using namespace std;
 struct FILEINFO {
     uint16_t fileType;
     uint8_t colorSpace;
-    uint8_t bpp;
+    uint8_t filterType;
     uint32_t width;
     uint32_t height;
     uint32_t numberOf12;
-    uint8_t filterType;
 };
 
 /**
