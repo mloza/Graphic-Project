@@ -23,7 +23,7 @@ public class Coder {
             arguments[0] = jarPath.getParentFile() + "/linux";
         else
         if(os.toLowerCase().contains("mac"))
-            arguments[0] = jarPath.getParentFile() + "/mac";
+            arguments[0] = jarPath.getParentFile() + "/mac.app";
         else
         if(os.toLowerCase().contains("windows"))
             arguments[0] = jarPath.getParentFile() + "/win.exe";
